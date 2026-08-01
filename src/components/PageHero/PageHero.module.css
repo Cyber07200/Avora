@@ -1,0 +1,72 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-dark);
+  padding: clamp(60px, 10vw, 100px) 0;
+  display: flex;
+  align-items: center;
+  min-height: clamp(280px, 21.8vw, 418px);
+}
+
+.heroBg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 51.6%;
+  height: 100%;
+}
+
+.heroBg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroBg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--bg-dark) 0%, transparent 35%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: var(--inner-w, 740px);
+}
+
+.title {
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--white);
+}
+
+.titleGlass {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.78);
+  filter: url(#glassLetters);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: var(--subtitle-w, 700px);
+}
+
+@media (max-width: 640px) {
+  .heroBg {
+    width: 100%;
+    opacity: 0.3;
+  }
+  .heroBg::after {
+    background: linear-gradient(180deg, var(--bg-dark) 40%, transparent 100%);
+  }
+}
