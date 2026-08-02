@@ -6,22 +6,28 @@ export default function PageHero({ title, subtitle, subtitleWidth = 700, innerWi
     <section className={styles.hero}>
       <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
         <defs>
-          <filter id="glassLetters" x="-30%" y="-30%" width="160%" height="160%">
+          <filter id="glassLetters" x="-40%" y="-40%" width="180%" height="180%">
             {/* bottom-right inset shadow (soft dark pressed edge) */}
-            <feOffset in="SourceAlpha" dx="4" dy="4" result="off1" />
-            <feGaussianBlur in="off1" stdDeviation="4" result="blur1" />
+            <feOffset in="SourceAlpha" dx="6" dy="6" result="off1" />
+            <feGaussianBlur in="off1" stdDeviation="3" result="blur1" />
             <feComposite in="blur1" in2="SourceAlpha" operator="out" result="inset1" />
-            <feFlood floodColor="#000000" floodOpacity="0.35" result="color1" />
+            <feFlood floodColor="#000000" floodOpacity="0.55" result="color1" />
             <feComposite in="color1" in2="inset1" operator="in" result="shadow1" />
 
             {/* top-left inset highlight (glass edge catching light) */}
-            <feOffset in="SourceAlpha" dx="-4" dy="-4" result="off2" />
-            <feGaussianBlur in="off2" stdDeviation="4" result="blur2" />
+            <feOffset in="SourceAlpha" dx="-6" dy="-6" result="off2" />
+            <feGaussianBlur in="off2" stdDeviation="3" result="blur2" />
             <feComposite in="blur2" in2="SourceAlpha" operator="out" result="inset2" />
-            <feFlood floodColor="#ffffff" floodOpacity="0.9" result="color2" />
+            <feFlood floodColor="#ffffff" floodOpacity="1" result="color2" />
             <feComposite in="color2" in2="inset2" operator="in" result="shadow2" />
 
+            {/* soft outer glow for extra depth/sheen */}
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="outerBlur" />
+            <feFlood floodColor="#ffffff" floodOpacity="0.35" result="outerColor" />
+            <feComposite in="outerColor" in2="outerBlur" operator="in" result="outerGlow" />
+
             <feMerge>
+              <feMergeNode in="outerGlow" />
               <feMergeNode in="SourceGraphic" />
               <feMergeNode in="shadow2" />
               <feMergeNode in="shadow1" />

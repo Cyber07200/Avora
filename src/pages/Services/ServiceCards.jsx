@@ -97,12 +97,8 @@ function TelegramVisual() {
   return (
     <div className={`${styles.visual} ${styles.visualMid}`}>
       {PILL_ROWS.map((row, i) => (
-        <div
-          key={i}
-          className={styles.pillRow}
-          style={{ left: `${row.x}%`, top: `${row.y}%` }}
-        >
-          {[...TELEGRAM_PILLS, ...TELEGRAM_PILLS].map((p, j) => (
+        <div key={i} className={styles.pillRow} style={{ left: `${row.x}%`, top: `${row.y}%` }}>
+          {TELEGRAM_PILLS.map((p, j) => (
             <span key={j} className={styles.pill}>
               {p}
             </span>
@@ -232,7 +228,6 @@ export default function ServiceCards() {
               <div className={styles.titleBlock}>
                 <div className={styles.headRow}>
                   <h3 className={styles.title}>{title}</h3>
-                  {badge && <span className={styles.badge}>{badge}</span>}
                 </div>
                 <p className={styles.desc}>{desc}</p>
               </div>
@@ -244,6 +239,7 @@ export default function ServiceCards() {
               </a>
             </div>
             <Visual />
+            {badge && <span className={styles.badge}>{badge}</span>}
           </article>
         )
       )}
