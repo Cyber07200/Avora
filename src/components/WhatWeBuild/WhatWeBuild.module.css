@@ -323,86 +323,16 @@
   z-index: 1;
 }
 
-.storeGlow {
-  position: absolute;
-  left: 25%;
-  top: 13.9%;
-  width: 50%;
-  height: 72.6%;
-  background: #ffffff;
-  filter: blur(50px);
-  opacity: 0.35;
-  border-radius: 50%;
-}
-
-.productStack {
+.storeStackImg {
   position: absolute;
   inset: 0;
-}
-
-.productCard {
-  position: absolute;
-  top: 0;
-  left: calc(var(--i) * 15.4%);
-  z-index: calc(2 - var(--i));
-  width: 52.5%;
-  aspect-ratio: 170 / 231;
-  transform: rotate(15deg);
-  transform-origin: top left;
-  background: linear-gradient(22deg, rgba(116, 116, 116, 0.2) 0%, rgba(29, 29, 29, 0.2) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: var(--shadow-soft);
-}
-
-.productCard img {
   width: 100%;
-  aspect-ratio: 150 / 110;
+  height: 100%;
+  max-width: none;
   object-fit: contain;
 }
 
-.productName {
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.productPrices {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--white);
-}
-
-.oldPrice {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: line-through;
-}
-
-.buyBtn {
-  margin-top: auto;
-  text-align: center;
-  background: var(--gray-950);
-  color: var(--white);
-  font-size: 16px;
-  font-weight: 500;
-  padding: 8px;
-  border-radius: 8px;
-}
-
-/* ---------- Web-services icon-bubble collage ---------- */
+/* ---------- Web-services icon-bubble collage (static SVG) ---------- */
 .bubbleField {
   position: absolute;
   left: 0;
@@ -410,29 +340,19 @@
   top: 54.2%;
   height: 45.8%;
   z-index: 1;
+  overflow: hidden;
 }
 
-.bubble {
+.webservicesImg {
   position: absolute;
-  width: 17.6%;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 30%;
-  color: rgba(255, 255, 255, 0.9);
-  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.25), inset -2px -2px 3px rgba(255, 255, 255, 0.15);
-  transform: translate(-50%, -50%) rotate(31.3deg);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
 }
 
-.bubbleFade {
-  position: absolute;
-  inset: 40% 0 0 0;
-  background: linear-gradient(180deg, rgba(73, 75, 78, 0) 0%, #16171a 100%);
-}
-
-/* ---------- Telegram pills (static, 3 staggered rows) ---------- */
+/* ---------- Telegram pills (static SVG) ---------- */
 .marquee {
   position: absolute;
   left: 0;
@@ -445,22 +365,12 @@
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
-.pillRow {
+.telegramImg {
   position: absolute;
-  display: flex;
-  gap: 15px;
-  width: max-content;
-}
-
-.pill {
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--white);
-  font-size: 20px;
-  font-weight: 500;
-  padding: 14px 22px;
-  border-radius: var(--radius-lg);
-  white-space: nowrap;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ---------- Mobile / desktop apps card art ---------- */
