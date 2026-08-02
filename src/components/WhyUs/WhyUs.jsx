@@ -63,10 +63,10 @@ export default function WhyUs() {
     <section className={styles.section} id="why-us">
       <div className="container">
         <div className="sectionEyebrow">
-          <HelpCircle size={40} color="rgba(17,17,17,0.8)" />
-          <h2 style={{ color: 'rgba(17,17,17,0.8)' }}>Почему с нами спокойно?</h2>
+          <HelpCircle size={32} color="rgba(17,17,17,0.8)" />
+          <h2 style={{ color: 'rgba(17,17,17,0.8)', fontSize: 24 }}>Почему с нами спокойно?</h2>
         </div>
-        <p className="sectionSubtitle" style={{ color: 'rgba(17,17,17,0.6)' }}>
+        <p className="sectionSubtitle" style={{ color: 'rgba(17,17,17,0.6)', marginTop: 20, fontSize: 18 }}>
           Мы убираем хаос из разработки. Чёткие договорённости, предсказуемые сроки и результат,
           которым можно гордиться.
         </p>

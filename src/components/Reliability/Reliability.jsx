@@ -16,10 +16,10 @@ export default function Reliability() {
     <section className={styles.section} id="reliability">
       <div className="container">
         <div className="sectionEyebrow">
-          <ShieldCheck size={40} color="rgba(255,255,255,0.8)" />
-          <h2 style={{ color: 'rgba(255,255,255,0.8)' }}>Надежность на каждом этапе</h2>
+          <ShieldCheck size={32} color="rgba(255,255,255,0.8)" />
+          <h2 style={{ color: 'rgba(255,255,255,0.8)', fontSize: 24, }}>Надежность на каждом этапе</h2>
         </div>
-        <p className="sectionSubtitle" style={{ color: 'rgba(255,255,255,0.6)' }}>
+        <p className="sectionSubtitle" style={{ color: 'rgba(255,255,255,0.6)', marginTop: 20, fontSize: 18 }}>
           Мы убираем главную боль работы с подрядчиками - неопределённость. Каждый проект ведём по
           договору с зафиксированными сроками и ценой.
         </p>

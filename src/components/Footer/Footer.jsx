@@ -35,10 +35,10 @@ export default function Footer() {
           </p>
           <div className={styles.social}>
             <a href="#" className={styles.socialIcon} aria-label="Telegram">
-              <Send size={24} />
+              <Send size={20} />
             </a>
             <a href="mailto:avora-lab@gmail.com" className={styles.socialIcon} aria-label="Email">
-              <Mail size={24} />
+              <Mail size={20} />
             </a>
           </div>
         </div>

@@ -61,10 +61,10 @@ export default function Process() {
     <section className={styles.section} id="process">
       <div className="container">
         <div className="sectionEyebrow">
-          <LineChart size={40} color="rgba(17,17,17,0.8)" />
-          <h2 style={{ color: 'rgba(17,17,17,0.8)' }}>Прозрачный путь от идеи до запуска</h2>
+          <LineChart size={32} color="rgba(17,17,17,0.8)" />
+          <h2 style={{ color: 'rgba(17,17,17,0.8)', fontSize: 24 }}>Прозрачный путь от идеи до запуска</h2>
         </div>
-        <p className="sectionSubtitle" style={{ color: 'rgba(17,17,17,0.6)' }}>
+        <p className="sectionSubtitle" style={{ color: 'rgba(17,17,17,0.6)', marginTop: 20, fontSize: 18 }}>
           Каждый этап завершается осязаемым результатом. Вы всегда понимаете, на каком шаге
           находится проект и что будет дальше.
         </p>

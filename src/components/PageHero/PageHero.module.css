@@ -27,12 +27,17 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--bg-dark) 0%, transparent 35%);
+  background: linear-gradient(
+    90deg,
+    var(--bg-dark) 0%,
+    rgba(15, 15, 15, 0.75) 20%,
+    transparent 50%
+  );
 }
 
 .heroInner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -41,21 +46,27 @@
 
 .title {
   font-size: clamp(36px, 5.5vw, 64px);
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--white);
-}
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 
-.titleGlass {
-  position: relative;
-  display: inline-block;
-  color: transparent;
-  background: rgba(255, 255, 255, 0.3);
-  background-clip: text;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.75) 35%,
+    rgba(255, 255, 255, 0.45) 70%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+
   -webkit-background-clip: text;
-  backdrop-filter: blur(4px) saturate(1.6) brightness(1.3);
-  -webkit-backdrop-filter: blur(4px) saturate(1.6) brightness(1.3);
-  filter: url(#glassLetters);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.15),
+    0 10px 30px rgba(255, 255, 255, 0.05);
+
+  max-width: 900px;
 }
 
 .subtitle {
@@ -70,9 +81,19 @@
 @media (max-width: 640px) {
   .heroBg {
     width: 100%;
-    opacity: 0.3;
+    opacity: 0.25;
   }
+
   .heroBg::after {
-    background: linear-gradient(180deg, var(--bg-dark) 40%, transparent 100%);
+    background: linear-gradient(
+      180deg,
+      var(--bg-dark) 25%,
+      rgba(15, 15, 15, 0.7) 60%,
+      transparent 100%
+    );
+  }
+
+  .subtitle {
+    font-size: 18px;
   }
 }

@@ -73,10 +73,10 @@ export default function WhatWeBuild() {
     <section className={styles.section} id="services">
       <div className="container">
         <div className="sectionEyebrow">
-          <HelpCircle size={40} color="#fff" />
-          <h2 style={{ color: '#fff' }}>Что мы разрабатываем?</h2>
+          <HelpCircle size={32} color="rgba(255, 255, 255, 0.8)" />
+          <h2 style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: 24 }}>Что мы разрабатываем?</h2>
         </div>
-        <p className="sectionSubtitle" style={{ color: '#fff' }}>
+        <p className="sectionSubtitle" style={{ color: 'rgba(255, 255, 255, 0.6)', marginTop: 20, fontSize: 18 }}>
           Берём проект любой сложности — от лендинга до полноценной платформы. Полный цикл под
           одной крышей.
         </p>

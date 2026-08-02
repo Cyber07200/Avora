@@ -54,7 +54,7 @@
   align-items: center;
   gap: 10px;
   background: rgba(252, 128, 3, 0.1);
-  color: var(--orange);
+  color: rgba(252, 128, 3, 0.8);
   font-size: 16px;
   font-weight: 500;
   padding: 10px 20px;
@@ -65,7 +65,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--orange);
+  background: rgba(252, 128, 3, 0.8);
   flex-shrink: 0;
 }
 
