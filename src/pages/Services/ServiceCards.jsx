@@ -1,12 +1,33 @@
+// ServiceCards — карточки услуг на странице "Услуги".
+//
+// Как это устроено:
+// 1. Массив SERVICES (ниже) — данные всех 5 карточек услуг (заголовок,
+//    описание, список фич, цена, срок) + компонент Visual для картинки справа.
+// 2. Каждая карточка — это position:sticky элемент с НАРАСТАЮЩИМ отступом
+//    top (96px, 124px, 152px...) и z-index. За счёт этого при обычной
+//    прокрутке страницы карточки "прилипают" одна поверх другой, создавая
+//    эффект стопки — без единой строчки JS, чистый CSS.
+// 3. Последняя (6-я) карточка — CTA "Расскажите о проекте", встроена в ту же
+//    sticky-стопку, но с другим содержимым (см. блок <article className={styles.cardCta}>).
+//    У неё есть свечение, следующее за курсором (handleCtaGlowMove).
 import { ArrowUpRight, BookOpen } from 'lucide-react'
-import landingPreview from '../../assets/images/landing-preview.webp'
-import laptopMockup from '../../assets/images/laptop-app-mockup.webp'
+import landingPreview from '../../assets/serviceCards/landing.png'
+import laptopMockup from '../../assets/serviceCards/desktop-app.png'
 import ctaLaptop from '../../assets/images/cta-laptop.webp'
-import iphoneStackNew from '../../assets/images/iphone-stack-new.webp'
-import webservicesIcons from '../../assets/images/webservices-icons.svg'
-import telegramPills from '../../assets/images/telegram-pills.svg'
-import telegramGlow from '../../assets/images/telegram-glow.webp'
+import iphoneStackNew from '../../assets/serviceCards/web-shop.png'
+import webservicesIcons from '../../assets/serviceCards/web-service.png'
+import telegramBots from '../../assets/serviceCards/telegram-bots.png'
 import styles from './ServiceCards.module.css'
+
+// Tracks the cursor position over the CTA card and exposes it as CSS custom
+// properties (--mx / --my), so the radial-gradient glow in .ctaGlow can
+// follow the mouse — same technique as FinalCta on the home page.
+function handleCtaGlowMove(e) {
+  const card = e.currentTarget
+  const rect = card.getBoundingClientRect()
+  card.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`)
+  card.style.setProperty('--my', `${((e.clientY - rect.top) / rect.height) * 100}%`)
+}
 
 function Features({ items }) {
   return (
@@ -26,8 +47,7 @@ function Features({ items }) {
 function LandingVisual() {
   return (
     <div className={`${styles.visual} ${styles.visualWide}`}>
-      <div className={styles.landingGlow} aria-hidden="true" />
-      <img src={landingPreview} alt="" loading="lazy" className={styles.landingImg} />
+      <img src={landingPreview} alt="" loading="lazy" className={styles.visualImg} />
     </div>
   )
 }
@@ -35,7 +55,12 @@ function LandingVisual() {
 function StoreVisual() {
   return (
     <div className={`${styles.visual} ${styles.visualNarrow}`}>
-      <img src={iphoneStackNew} alt="" loading="lazy" className={styles.storeStackImg} />
+      <img
+        src={iphoneStackNew}
+        alt=""
+        loading="lazy"
+        className={`${styles.visualImg} ${styles.storeVisualImg}`}
+      />
     </div>
   )
 }
@@ -43,7 +68,7 @@ function StoreVisual() {
 function WebServicesVisual() {
   return (
     <div className={`${styles.visual} ${styles.visualNarrow}`}>
-      <img src={webservicesIcons} alt="" loading="lazy" className={styles.webservicesImg} />
+      <img src={webservicesIcons} alt="" loading="lazy" className={styles.visualImg} />
     </div>
   )
 }
@@ -51,8 +76,7 @@ function WebServicesVisual() {
 function TelegramVisual() {
   return (
     <div className={`${styles.visual} ${styles.visualMid}`}>
-      <img src={telegramGlow} alt="" loading="lazy" className={styles.telegramGlowImg} />
-      <img src={telegramPills} alt="" loading="lazy" className={styles.telegramImg} />
+      <img src={telegramBots} alt="" loading="lazy" className={styles.visualImg} />
     </div>
   )
 }
@@ -60,8 +84,7 @@ function TelegramVisual() {
 function MobileVisual() {
   return (
     <div className={`${styles.visual} ${styles.visualMid}`}>
-      <div className={styles.laptopGlow} aria-hidden="true" />
-      <img src={laptopMockup} alt="" loading="lazy" className={styles.laptopImg} />
+      <img src={laptopMockup} alt="" loading="lazy" className={styles.visualImg} />
     </div>
   )
 }
@@ -81,7 +104,7 @@ const SERVICES = [
       'Формы заявок и аналитика',
       'Базовая SEO-оптимизация',
     ],
-    price: 'Цены начинаются От 29 990 ₽',
+    price: 'Цены начинаются от 39 900 ₽',
     duration: 'Срок от 5 дней',
     cardClass: 'cardWhite',
     Visual: LandingVisual,
@@ -100,7 +123,7 @@ const SERVICES = [
       'Админ-панель',
       'Интеграции с доставкой и CRM',
     ],
-    price: 'Цены начинаются От 47 590 ₽',
+    price: 'Цены начинаются от 89 900 ₽',
     duration: 'Срок от 3-5 недель',
     cardClass: 'cardPurple',
     Visual: StoreVisual,
@@ -118,7 +141,7 @@ const SERVICES = [
       'Интеграции с внешними сервисами',
       'Масштабируемая архитектура',
     ],
-    price: 'Цены начинаются от 17 990 ₽',
+    price: 'Цены начинаются от 79 900 ₽',
     duration: 'Срок от 4–8 недель',
     cardClass: 'cardDark',
     Visual: WebServicesVisual,
@@ -136,7 +159,7 @@ const SERVICES = [
       'Админ-панель',
       'Рассылки и уведомления',
     ],
-    price: 'Цены начинаются От 7 960 ₽',
+    price: 'Цены начинаются От 24 900 ₽',
     duration: 'Срок от 5–14 дней',
     cardClass: 'cardBlue',
     Visual: TelegramVisual,
@@ -155,7 +178,7 @@ const SERVICES = [
       'Интеграции',
       'Публикация в сторах (при необходимости)',
     ],
-    price: 'Цены начинаются От 58 790 ₽',
+    price: 'Цены начинаются От 149 900 ₽',
     duration: 'Срок от 3-5 недель',
     cardClass: 'cardSlate',
     Visual: MobileVisual,
@@ -196,7 +219,7 @@ export default function ServiceCards() {
         className={`${styles.card} ${styles.cardCta}`}
         style={{ top: `${96 + SERVICES.length * 28}px`, zIndex: SERVICES.length + 1 }}
       >
-        <div className={styles.ctaBg}>
+        <div className={styles.ctaBg} onMouseMove={handleCtaGlowMove}>
           <div className={styles.ctaGlow} aria-hidden="true" />
           <div className={styles.ctaContent}>
             <span className={styles.ctaEyebrow}>Готовы начать</span>

@@ -1,4 +1,4 @@
-import iphoneRockMockup from '../../assets/images/iphone-rock-mockup.webp'
+import iphoneRockMockup from '../../assets/images/iphone-rock-mockup.png'
 import styles from './PageHero.module.css'
 
 export default function PageHero({

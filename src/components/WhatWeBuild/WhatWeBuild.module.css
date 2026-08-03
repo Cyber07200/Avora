@@ -388,8 +388,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 100%;
-  height: 100%;
+  width: 120%;
+  height: 120%;
   max-width: none;
   transform: translate(-50%, -50%) rotate(-15deg);
   object-fit: contain;

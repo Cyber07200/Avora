@@ -45,6 +45,7 @@ const STAGES = [
     text: 'Проверяем на разных устройствах, ищем ошибки и всё исправляем до запуска.',
     img: stage4,
     rotate: -32,
+    offsetY: 18,
   },
   {
     n: '5',
@@ -70,7 +71,7 @@ export default function Process() {
         </p>
 
         <div className={styles.row}>
-          {STAGES.map(({ n, icon: Icon, title, text, img, rotate }) => (
+          {STAGES.map(({ n, icon: Icon, title, text, img, rotate, offsetY = 0 }) => (
             <article key={n} className={styles.card} onMouseMove={handleCardGlow}>
               <span className={styles.cardGlow} aria-hidden="true" />
               <div className={styles.glow} aria-hidden="true" />
@@ -88,7 +89,7 @@ export default function Process() {
                   alt=""
                   loading="lazy"
                   className={styles.art}
-                  style={{ transform: `rotate(${rotate}deg)` }}
+                  style={{ transform: `translateY(${offsetY}px) rotate(${rotate}deg)` }}
                 />
               </div>
             </article>

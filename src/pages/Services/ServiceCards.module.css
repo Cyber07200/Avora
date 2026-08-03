@@ -12,7 +12,6 @@
   display: flex;
   align-items: stretch;
   min-height: 400px;
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.35);
   will-change: transform;
 }
 
@@ -82,8 +81,8 @@
   align-items: center;
   padding: 10px 20px;
   border-radius: var(--radius-md);
-  background: rgba(252, 128, 3, 0.1);
-  color: rgba(252, 128, 3, 0.8);
+  background-image: linear-gradient(-30deg, #111111, #5c5c5c7c);
+  color: rgb(255, 255, 255);
   font-size: 24px;
   font-weight: 500;
   white-space: nowrap;
@@ -180,115 +179,30 @@
 /* ---------- Visual area (shared base, full-bleed to card edges) ---------- */
 .visual {
   position: relative;
-  z-index: 1;
-  align-self: stretch;
-  min-width: 0;
-  flex-shrink: 0;
+  flex: 0 0 50%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.visualWide {
-  flex: 0 0 48%;
-}
-
-.visualNarrow {
-  flex: 0 0 38.95%;
-}
-
-.visualMid {
-  flex: 0 0 43.9%;
-}
-
-/* Landing */
-.landingImg {
-  position: absolute;
-  left: 0%;
-  top: 19.9%;
-  width: 151.4%;
-  height: 129.3%;
+.visualImg {
+  width: auto;
+  height: 100%;
   max-width: none;
   object-fit: contain;
-  object-position: top left;
+  display: block;
 }
 
-.landingGlow {
-  position: absolute;
-  left: 10%;
-  top: 75%;
-  width: 96%;
-  height: 54%;
-  background: #252525;
-  opacity: 0.15;
-  filter: blur(70px);
-  border-radius: 50%;
+/* A hairline sub-pixel gap could appear at the card edge (rounding during
+   scaling), showing a sliver of the card's own background through the
+   rounded corner. Nudging the image 2px past each edge removes it for good. */
+.storeVisualImg {
+  height: calc(100% + 4px);
+  margin: -2px 0;
 }
 
-/* Store (stacked product cards) */
-.storeStackImg {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 155%;
-  height: 155%;
-  max-width: none;
-  transform: translateX(-50%);
-  object-fit: contain;
-  object-position: bottom;
-}
 
-/* Web services icon collage (static SVG) */
-.webservicesImg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Telegram pill rows (static SVG) */
-.telegramGlowImg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.telegramImg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-/* Mobile / laptop */
-.laptopImg {
-  position: absolute;
-  left: -3.97%;
-  top: 91.4%;
-  width: 160%;
-  height: 61.7%;
-  max-width: none;
-  transform: rotate(-25.74deg);
-  transform-origin: top left;
-  object-fit: fill;
-}
-
-.laptopGlow {
-  position: absolute;
-  left: 9.5%;
-  top: 82.7%;
-  width: 100.4%;
-  height: 48.6%;
-  transform: rotate(-22.77deg);
-  transform-origin: top left;
-  background: #ffffff;
-  filter: blur(60px);
-  opacity: 0.5;
-  border-radius: 50%;
-}
 
 @media (max-width: 980px) {
   .card {
@@ -332,7 +246,7 @@
 .ctaGlow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(45% 60% at 47% 8%, rgba(252, 128, 3, 0.6), transparent 70%);
+  background: radial-gradient(45% 60% at var(--mx, 47%) var(--my, 8%), rgba(252, 128, 3, 0.6), transparent 70%);
   filter: blur(60px);
 }
 

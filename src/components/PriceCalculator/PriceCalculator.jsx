@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
-import iphoneRockMockup from '../../assets/images/iphone-rock-mockup.webp'
+import iphoneRockMockup from '../../assets/images/iphone-rock-mockup.png'
 import landingPreview from '../../assets/images/landing-preview.webp'
 import styles from './PriceCalculator.module.css'
 

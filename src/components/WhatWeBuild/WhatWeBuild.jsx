@@ -51,7 +51,7 @@ export default function WhatWeBuild() {
                 Одностраничники, которые продают. Чистый дизайн, быстрая загрузка и акцент на
                 заявки.
               </p>
-              <PriceButton tone="orange">От 29 990 ₽</PriceButton>
+              <PriceButton tone="orange">От 39 900 ₽</PriceButton>
               <div className={styles.landingArt} aria-hidden="true">
                 <div className={styles.landingGlow} />
                 <img src={landingPreview} alt="" loading="lazy" />
@@ -72,7 +72,7 @@ export default function WhatWeBuild() {
                 Полноценные магазины с каталогом, корзиной, оплатой и личным кабинетом. Готовы к
                 запуску рекламы.
               </p>
-              <PriceButton tone="white-orange">От 47 590 ₽</PriceButton>
+              <PriceButton tone="white-orange">От 89 900 ₽</PriceButton>
               <div className={styles.storeArt} aria-hidden="true">
                 <img src={iphoneStackNew} alt="" loading="lazy" className={styles.storeStackImg} />
               </div>
@@ -91,7 +91,7 @@ export default function WhatWeBuild() {
                 Сложные продукты: личные кабинеты, платформы, автоматизация процессов. Под ваши
                 задачи.
               </p>
-              <PriceButton tone="white-dark">От 17 990 ₽</PriceButton>
+              <PriceButton tone="white-dark">От 79 900 ₽</PriceButton>
               <div className={styles.bubbleField} aria-hidden="true">
                 <img src={webservicesIcons} alt="" loading="lazy" className={styles.webservicesImg} />
               </div>
@@ -108,7 +108,7 @@ export default function WhatWeBuild() {
                 Боты для продаж, поддержки, записи и автоматизации. От простых до сложных
                 сценариев с оплатой и CRM.
               </p>
-              <PriceButton tone="white-blue">От 7 960 ₽</PriceButton>
+              <PriceButton tone="white-blue">От 24 900 ₽</PriceButton>
               <div className={styles.marquee} aria-hidden="true">
                 <img src={telegramPills} alt="" loading="lazy" className={styles.telegramImg} />
               </div>
@@ -131,7 +131,7 @@ export default function WhatWeBuild() {
             <p className={styles.cardTextDark}>
               Нативные и кроссплатформенные приложения с удобным интерфейсом и стабильной работой.
             </p>
-            <PriceButton tone="dark">От 58 790 ₽</PriceButton>
+            <PriceButton tone="dark">От 149 900 ₽</PriceButton>
             <div className={styles.laptopArt} aria-hidden="true">
               <div className={styles.laptopGlow} />
               <img src={laptopMockup} alt="" loading="lazy" />

@@ -60,10 +60,9 @@ export default function Hero() {
         <div className={styles.visualCol}>
           <div className={styles.stage}>
             <div className={styles.phoneWrap}>
-              <div className={styles.glowBlob} aria-hidden="true" />
               <img
                 src={heroPhoneMockup}
-                alt="Мокап приложения AvoraLab в руке на iPhone"
+                alt="Мокап приложения AvoraLab на iPhone"
                 className={styles.phoneImg}
                 fetchPriority="high"
               />

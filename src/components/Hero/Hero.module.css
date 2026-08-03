@@ -189,18 +189,6 @@
   overflow: visible;
 }
 
-.glowBlob {
-  position: absolute;
-  left: 64.3%;
-  top: 12.2%;
-  width: 37.3%;
-  height: 73.5%;
-  background: rgba(62, 42, 32, 0.5);
-  filter: blur(55px);
-  transform: rotate(33deg);
-  border-radius: 50%;
-}
-
 .phoneImg {
   position: relative;
   width: 100%;
