@@ -157,6 +157,7 @@
 
 .proofStrong {
   color: rgba(50, 50, 50, 0.8);
+  font-weight: 600;
 }
 
 .proofSoft {
@@ -166,7 +167,10 @@
 /* ---------- Visual column ---------- */
 .visualCol {
   position: relative;
-  width: 100%;
+  right: 0;
+  width: 120%;
+  height: 80vh;
+  transform: translateY(-100px);
   overflow: visible;
 }
 
@@ -202,8 +206,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(232, 232, 232, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(232, 232, 232, 0.5);
+  border: 5px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   box-shadow: var(--shadow-soft);
@@ -228,18 +232,18 @@
 }
 
 .badge1 {
-  left: 47%;
-  top: 81%;
+  left: 60%;
+  top: 60%;
 }
 
 .badge2 {
-  left: 54.5%;
-  top: 65%;
+  left: 52%;
+  top: 72%;
 }
 
 .badge3 {
-  left: 62%;
-  top: 49%;
+  left: 44%;
+  top: 84%;
 }
 
 /* ---------- Responsive ---------- */
