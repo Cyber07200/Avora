@@ -82,10 +82,10 @@ export default function Header() {
         )}
       </nav>
 
-      <a href="/#contact" className={styles.cta}>
+      <Link to="/contact" className={styles.cta}>
         <PhoneCall size={16} />
         <span>Обсудить проект</span>
-      </a>
+      </Link>
 
       <button
         type="button"
@@ -112,10 +112,10 @@ export default function Header() {
                 renderNavItem(item, { item: styles.drawerItem, active: styles.drawerItemActive })
               )}
             </nav>
-            <a href="/#contact" className={styles.drawerCta} onClick={closeMenu}>
+            <Link to="/contact" className={styles.drawerCta} onClick={closeMenu}>
               <PhoneCall size={18} />
               <span>Обсудить проект</span>
-            </a>
+            </Link>
           </div>
         </>
       )}

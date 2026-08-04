@@ -14,6 +14,7 @@ import { ArrowUpRight, BookOpen } from 'lucide-react'
 import landingPreview from '../../assets/serviceCards/landing.png'
 import laptopMockup from '../../assets/serviceCards/desktop-app.png'
 import ctaLaptop from '../../assets/images/cta-laptop.webp'
+import expressLaptopClock from '../../assets/images/express-laptop-clock.webp'
 import iphoneStackNew from '../../assets/serviceCards/web-shop.png'
 import webservicesIcons from '../../assets/serviceCards/web-service.png'
 import telegramBots from '../../assets/serviceCards/telegram-bots.png'
@@ -85,6 +86,14 @@ function MobileVisual() {
   return (
     <div className={`${styles.visual} ${styles.visualMid}`}>
       <img src={laptopMockup} alt="" loading="lazy" className={styles.visualImg} />
+    </div>
+  )
+}
+
+function ExpressVisual() {
+  return (
+    <div className={`${styles.visual} ${styles.visualNarrow}`}>
+      <img src={expressLaptopClock} alt="" loading="lazy" className={styles.expressImg} />
     </div>
   )
 }
@@ -182,6 +191,22 @@ const SERVICES = [
     duration: 'Срок от 3-5 недель',
     cardClass: 'cardSlate',
     Visual: MobileVisual,
+  },
+  {
+    key: 'express',
+    textWidth: 764,
+    title:
+      'Мы можем сократить срок проекта до 20% от стандартного за счёт приоритетной работы команды.',
+    desc: 'Вы получаете тот же качественный результат, но в ускоренном режиме. Подходит, когда нужно запуститься к рекламной кампании, акции или важному дедлайну.',
+    features: [
+      'Лендинг — не за 5–7 дней, а за 1–2 дня',
+      'Бот — значительно быстрее обычных сроков',
+      'Сервис или магазин — с максимальным приоритетом',
+    ],
+    price: 'Цены начинаются от +40–50% к обычной цене',
+    duration: 'Обсудить экспресс-срок',
+    cardClass: 'cardExpress',
+    Visual: ExpressVisual,
   },
 ]
 

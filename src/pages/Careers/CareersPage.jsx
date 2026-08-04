@@ -1,7 +1,9 @@
+import { useMemo, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import Header from '../../components/Header/Header.jsx'
 import Footer from '../../components/Footer/Footer.jsx'
 import PageHero from '../../components/PageHero/PageHero.jsx'
+import JobSearch from './JobSearch.jsx'
 import styles from './CareersPage.module.css'
 
 const JOBS = [
@@ -34,6 +36,16 @@ const JOBS = [
 ]
 
 export default function CareersPage() {
+  const [query, setQuery] = useState('')
+
+  const filteredJobs = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return JOBS
+    return JOBS.filter(
+      (job) => job.title.toLowerCase().includes(q) || job.desc.toLowerCase().includes(q)
+    )
+  }, [query])
+
   return (
     <>
       <Header />
@@ -50,8 +62,13 @@ export default function CareersPage() {
 
         <section className={styles.section}>
           <div className="container">
-            <div className={styles.list}>
-              {JOBS.map((job) => (
+            <JobSearch value={query} onChange={setQuery} />
+
+            {filteredJobs.length === 0 ? (
+              <p className={styles.empty}>По запросу «{query}» вакансий не найдено.</p>
+            ) : (
+              <div className={styles.list}>
+                {filteredJobs.map((job) => (
                 <article key={job.title} className={styles.card}>
                   <div className={styles.headRow}>
                     <h3 className={styles.jobTitle}>{job.title}</h3>
@@ -77,6 +94,7 @@ export default function CareersPage() {
                 </article>
               ))}
             </div>
+            )}
 
             <article className={styles.ctaCard}>
               <div className={styles.ctaHead}>
