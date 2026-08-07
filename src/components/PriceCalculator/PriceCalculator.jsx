@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
 import iphoneRockMockup from '../../assets/images/iphone-rock-mockup.png'
 import landingPreview from '../../assets/images/landing-preview.webp'
 import styles from './PriceCalculator.module.css'
@@ -45,6 +46,7 @@ export default function PriceCalculator() {
   const [answers, setAnswers] = useState({ type: 'Лендинг / промо-сайт' })
   const [contact, setContact] = useState({ name: '', telegram: '' })
   const [submitted, setSubmitted] = useState(false)
+  const { containerRef, isVisible } = useRevealOnScroll(1)
 
   const isQuestionStep = step <= STEPS.length
   const current = STEPS[step - 1]
@@ -82,7 +84,10 @@ export default function PriceCalculator() {
           </p>
         </div>
 
-        <div className={styles.panel}>
+        <div
+          className={`${styles.panel} reveal ${isVisible(0) ? 'reveal-visible' : ''}`}
+          ref={containerRef}
+        >
           {!submitted ? (
             <>
               <ol className={styles.stepper} aria-label="Прогресс заполнения">

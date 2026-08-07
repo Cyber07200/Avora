@@ -1,5 +1,6 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { HelpCircle, FastForward, Layers, FileText, Calendar, Code, BarChart3 } from 'lucide-react'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
 import styles from './WhyUs.module.css'
 
 const CARDS = [
@@ -35,8 +36,27 @@ const CARDS = [
   },
 ]
 
-function WhyUsCard({ icon: Icon, title, text }) {
+function WhyUsCard({ icon: Icon, title, text, className }) {
   const cardRef = useRef(null)
+  // На мобильных нет курсора для hover — вместо этого карточка сама
+  // "загорается" оранжевым свечением, когда оказывается в центре экрана
+  // при прокрутке. Работает через IntersectionObserver с узкой полосой
+  // rootMargin вокруг середины вьюпорта: как только карточка её пересекает
+  // — считаем, что она "перед пользователем", и включаем класс centerGlow.
+  const [centerGlow, setCenterGlow] = useState(false)
+
+  useEffect(() => {
+    const el = cardRef.current
+    if (!el) return
+    if (!window.matchMedia('(hover: none)').matches) return // только touch-устройства
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setCenterGlow(entry.isIntersecting),
+      { rootMargin: '-42% 0px -42% 0px', threshold: 0 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const handleMouseMove = (e) => {
     const card = cardRef.current
@@ -47,7 +67,11 @@ function WhyUsCard({ icon: Icon, title, text }) {
   }
 
   return (
-    <div className={styles.card} ref={cardRef} onMouseMove={handleMouseMove}>
+    <div
+      className={`${styles.card} ${className || ''} ${centerGlow ? styles.centerGlow : ''}`}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+    >
       <span className={styles.glow} aria-hidden="true" />
       <span className={styles.iconBubble}>
         <Icon size={32} />
@@ -59,6 +83,8 @@ function WhyUsCard({ icon: Icon, title, text }) {
 }
 
 export default function WhyUs() {
+  const { containerRef, isVisible } = useRevealOnScroll(CARDS.length)
+
   return (
     <section className={styles.section} id="why-us">
       <div className="container">
@@ -71,9 +97,13 @@ export default function WhyUs() {
           которым можно гордиться.
         </p>
 
-        <div className={styles.grid}>
-          {CARDS.map((card) => (
-            <WhyUsCard key={card.title} {...card} />
+        <div className={styles.grid} ref={containerRef}>
+          {CARDS.map((card, i) => (
+            <WhyUsCard
+              key={card.title}
+              {...card}
+              className={`reveal ${isVisible(i) ? 'reveal-visible' : ''}`}
+            />
           ))}
         </div>
       </div>

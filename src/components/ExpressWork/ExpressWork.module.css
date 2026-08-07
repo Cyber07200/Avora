@@ -169,19 +169,60 @@
 }
 
 @media (max-width: 900px) {
+  .head {
+    gap: 14px;
+  }
+  .headIcon {
+    width: 32px;
+    height: 32px;
+  }
   .card {
-    flex-direction: column;
     min-height: 0;
   }
-  .artWrap {
-    height: 260px;
+  .content {
+    padding: 24px;
+    gap: 20px;
+  }
+  .headline {
+    /* Leaves clear room above the photo in the corner so no word gets
+       visually cut by it on narrow screens. */
+    max-width: 78%;
+  }
+  .art {
+    width: 46%;
+    top: -8%;
+    right: -6%;
   }
   .bottomRow {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .fineprint {
+    max-width: none;
   }
   .cta {
+    margin-left: 0;
     width: 100%;
     justify-content: center;
+  }
+  .point {
+    white-space: normal;
+    text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+  .headline {
+    max-width: 100%;
+  }
+  .art {
+    /* Below ~520px the corner photo has too little room to read at any
+       useful size next to the full-width heading — hide it rather than
+       let it shrink into an illegible smear. */
+    display: none;
+  }
+  .artGlow {
+    display: none;
   }
 }

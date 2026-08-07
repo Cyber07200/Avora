@@ -46,6 +46,10 @@
   opacity: 1;
 }
 
+.card.centerGlow::before {
+  opacity: 1;
+}
+
 .glow {
   position: absolute;
   inset: 0;
@@ -62,6 +66,13 @@
 
 .card:hover .glow {
   opacity: 1;
+}
+
+.card.centerGlow .glow {
+  /* No cursor position on touch devices, so light the whole card evenly
+     from its own centre instead of following --mx/--my. */
+  opacity: 1;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.35), transparent 70%);
 }
 
 .iconBubble {

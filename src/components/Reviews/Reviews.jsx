@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Star, Quote } from 'lucide-react'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
 import styles from './Reviews.module.css'
 
 const REVIEWS = [
@@ -47,39 +48,6 @@ const REVIEWS = [
   },
 ]
 
-// Каждая карточка появляется с небольшой задержкой относительно предыдущей —
-// эффект "волны" при попадании блока в область видимости.
-function useRevealOnScroll(count) {
-  const containerRef = useRef(null)
-  const [visible, setVisible] = useState(() => new Array(count).fill(false))
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          REVIEWS.forEach((_, i) => {
-            setTimeout(() => {
-              setVisible((prev) => {
-                const next = [...prev]
-                next[i] = true
-                return next
-              })
-            }, i * 90)
-          })
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  return { containerRef, visible }
-}
-
 function handleCardGlow(e) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
@@ -88,7 +56,32 @@ function handleCardGlow(e) {
 }
 
 export default function Reviews() {
-  const { containerRef, visible } = useRevealOnScroll(REVIEWS.length)
+  const { containerRef, isVisible } = useRevealOnScroll(REVIEWS.length)
+  const trackRef = useRef(null)
+  const [activeDot, setActiveDot] = useState(0)
+
+  // Подсвечиваем точку-индикатор той карточки, что сейчас ближе всего к
+  // левому краю видимой области карусели — простой способ показать
+  // прогресс горизонтальной прокрутки без тяжёлой библиотеки.
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    const onScroll = () => {
+      const cardWidth = track.firstElementChild?.getBoundingClientRect().width || 1
+      const gap = 24
+      const index = Math.round(track.scrollLeft / (cardWidth + gap))
+      setActiveDot(Math.min(index, REVIEWS.length - 1))
+    }
+    track.addEventListener('scroll', onScroll, { passive: true })
+    return () => track.removeEventListener('scroll', onScroll)
+  }, [])
+
+  function scrollToCard(i) {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.children[i]
+    if (card) card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+  }
 
   return (
     <section className={styles.section}>
@@ -103,32 +96,48 @@ export default function Reviews() {
           </div>
         </div>
 
-        <div ref={containerRef} className={styles.grid}>
-          {REVIEWS.map((r, i) => (
-            <article
-              key={r.name}
-              className={`${styles.card} ${visible[i] ? styles.cardVisible : ''}`}
-              style={{ transitionDelay: `${i * 90}ms` }}
-              onMouseMove={handleCardGlow}
-            >
-              <span className={styles.cardGlow} aria-hidden="true" />
-              <div className={styles.stars} aria-hidden="true">
-                {Array.from({ length: 5 }).map((_, s) => (
-                  <Star key={s} size={16} fill="currentColor" strokeWidth={0} />
-                ))}
-              </div>
-              <p className={styles.text}>{r.text}</p>
-              <div className={styles.person}>
-                <span className={styles.avatar} style={{ background: r.color }}>
-                  {r.initials}
-                </span>
-                <span>
-                  <span className={styles.name}>{r.name}</span>
-                  <span className={styles.role}>{r.role}</span>
-                </span>
-              </div>
-            </article>
-          ))}
+        <div ref={containerRef}>
+          <div className={styles.track} ref={trackRef}>
+            {REVIEWS.map((r, i) => (
+              <article
+                key={r.name}
+                className={`${styles.card} ${isVisible(i) ? styles.cardVisible : ''}`}
+                style={{ transitionDelay: `${i * 90}ms` }}
+                onMouseMove={handleCardGlow}
+              >
+                <span className={styles.cardGlow} aria-hidden="true" />
+                <div className={styles.stars} aria-hidden="true">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star key={s} size={16} fill="currentColor" strokeWidth={0} />
+                  ))}
+                </div>
+                <p className={styles.text}>{r.text}</p>
+                <div className={styles.person}>
+                  <span className={styles.avatar} style={{ background: r.color }}>
+                    {r.initials}
+                  </span>
+                  <span>
+                    <span className={styles.name}>{r.name}</span>
+                    <span className={styles.role}>{r.role}</span>
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className={styles.dots} role="tablist" aria-label="Прокрутка отзывов">
+            {REVIEWS.map((r, i) => (
+              <button
+                key={r.name}
+                type="button"
+                role="tab"
+                aria-label={`Отзыв ${i + 1}`}
+                aria-selected={activeDot === i}
+                className={`${styles.dot} ${activeDot === i ? styles.dotActive : ''}`}
+                onClick={() => scrollToCard(i)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

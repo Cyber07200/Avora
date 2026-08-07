@@ -1,6 +1,8 @@
 .hero {
   position: relative;
-  overflow: hidden;
+  z-index: 1;
+  overflow-x: clip;
+  overflow-y: visible;
   background: var(--bg-light);
 }
 
@@ -167,10 +169,11 @@
 /* ---------- Visual column ---------- */
 .visualCol {
   position: relative;
+  z-index: 2;
   right: 0;
   width: 120%;
   height: 80vh;
-  transform: translateY(-100px);
+  transform: translateY(24px);
   overflow: visible;
 }
 
@@ -250,25 +253,53 @@
 @media (max-width: 1080px) {
   .inner {
     grid-template-columns: 1fr;
+    padding-top: 28px;
   }
   .visualCol {
     max-width: 520px;
     margin-inline: auto;
+    /* height:80vh на мобильном давал ~675px пустоты и уводил телефон далеко
+       вниз — здесь колонка занимает ровно столько, сколько нужно её
+       содержимому. */
+    height: auto;
+    transform: translateY(0);
   }
   .textCol {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
   .heading,
   .subtext {
     max-width: 100%;
   }
   .ctaRow {
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 560px) {
+  /* Компактнее типографика и кнопки, чтобы телефон из макета попадал
+     в первый экран без прокрутки. */
+  .textCol {
+    gap: 16px;
+  }
+  .heading {
+    font-size: 24px;
+  }
+  .subtext {
+    font-size: 16px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+  .ctaRow {
+    gap: 10px;
+  }
+  .ctaRow > * {
+    padding: 14px 20px;
+    font-size: 15px;
+  }
   .floatBadge {
     font-size: 12px;
     padding: 4px 16px 4px 4px;

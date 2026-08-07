@@ -215,28 +215,32 @@ export default function ServiceCards() {
     <div className={styles.list}>
       {SERVICES.map(
         ({ key, title, badge, desc, features, price, duration, cardClass, textWidth, Visual }, i) => (
-          <article
+          <div
             key={key}
-            className={`${styles.card} ${styles[cardClass]}`}
-            style={{ '--text-w': `${textWidth}px`, top: `${96 + i * 28}px`, zIndex: i + 1 }}
+            className={styles.cardWrap}
+            style={{ top: `${96 + i * 28}px`, zIndex: i + 1 }}
           >
-            <div className={styles.content}>
-              <div className={styles.titleBlock}>
-                <div className={styles.headRow}>
-                  <h3 className={styles.title}>{title}</h3>
+            <article className={`${styles.card} ${styles[cardClass]}`} style={{ '--text-w': `${textWidth}px` }}>
+              <div className={styles.content}>
+                <div className={styles.titleBlock}>
+                  <div className={styles.headRow}>
+                    <h3 className={styles.title}>{title}</h3>
+                  </div>
+                  <p className={styles.desc}>{desc}</p>
                 </div>
-                <p className={styles.desc}>{desc}</p>
+                <Features items={features} />
+                <span className={styles.priceText}>{price}</span>
+                <a href="#contact" className={styles.durationBtn}>
+                  <span>{duration}</span>
+                  <ArrowUpRight size={20} />
+                </a>
               </div>
-              <Features items={features} />
-              <span className={styles.priceText}>{price}</span>
-              <a href="#contact" className={styles.durationBtn}>
-                <span>{duration}</span>
-                <ArrowUpRight size={20} />
-              </a>
-            </div>
-            <Visual />
+              <Visual />
+            </article>
+            {/* Badge lives outside the card's own overflow:hidden so it can
+                stick out past the rounded corner like an attached label. */}
             {badge && <span className={styles.badge}>{badge}</span>}
-          </article>
+          </div>
         )
       )}
 

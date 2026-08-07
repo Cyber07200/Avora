@@ -53,6 +53,14 @@
   aspect-ratio: 1720 / 300;
 }
 
+.bottomWide {
+  min-width: 0;
+}
+
+.bottomNarrow {
+  min-width: 0;
+}
+
 /* ---------- generic card shell ---------- */
 .card {
   position: relative;
@@ -86,14 +94,6 @@
 
 .card:hover .cardGlow {
   opacity: 1;
-}
-
-.bottomWide {
-  min-width: 0;
-}
-
-.bottomNarrow {
-  min-width: 0;
 }
 
 .cardHeadRow {
@@ -451,6 +451,19 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 980px) {
+  /* Бейдж («Популярно», «Выгодно» и т.д.) уходит под заголовок карточки
+     и прижимается к левому краю, а не стоит справа от него в одну строку. */
+  .cardHeadRow {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  /* На десктопе у бейджа есть декоративное смещение (translateX(30px)),
+     из-за которого под заголовком он не вставал вровень по левому краю. */
+  .softBadge {
+    transform: none;
+  }
   .topRow,
   .rightCol {
     flex-direction: column;
@@ -466,29 +479,48 @@
   .cardTitleLight {
     max-width: 100%;
   }
+  /* Картинки прижаты к низу карточки отдельным слоем и занимают всю
+     ширину — раньше они шли в общем потоке после кнопки (отсюда «кривой»
+     вид) и вдобавок снизу оставался пустой отступ, из-за чего карточки
+     были примерно на 550px длиннее необходимого. */
   .landingArt,
   .storeArt,
-  .laptopArt {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    height: 200px;
-    right: auto;
+  .laptopArt,
+  .bubbleField,
+  .marquee {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     top: auto;
-    margin-top: 10px;
+    width: 100%;
+    height: 280px;
+    margin-top: 0;
+    overflow: hidden;
+  }
+  .landingArt img,
+  .laptopArt img,
+  .storeStackImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    transform: none;
   }
   .card {
     min-height: 0;
   }
   .cardShort,
   .cardNarrowTall,
-  .bottomWide,
-  .bottomNarrow {
-    min-height: 300px;
-    padding-bottom: 220px;
+  .bottomWide {
+    min-height: 0;
+    padding-bottom: 300px;
   }
-  .bubbleField,
-  .marquee {
-    height: 200px;
+  .telegramImg,
+  .webservicesImg {
+    object-fit: contain;
+    object-position: bottom center;
   }
 }

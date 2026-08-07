@@ -1,6 +1,7 @@
 .section {
-  background: var(--bg-light);
+  background: var(--bg-dark);
   padding: clamp(50px, 8vw, 90px) 0;
+  overflow: hidden;
 }
 
 .head {
@@ -19,37 +20,37 @@
 .title {
   font-size: clamp(24px, 2.6vw, 32px);
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--white);
 }
 
 .subtitle {
   font-size: 18px;
   font-weight: 500;
-  color: rgba(17, 17, 17, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   margin-top: 4px;
 }
 
-.grid {
+/* ---------- Desktop: static grid (dark theme kept, no carousel) ---------- */
+.track {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 24px;
 }
 
 .card {
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  background: linear-gradient(155deg, #232323 0%, #161616 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
   padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  box-shadow: var(--shadow-soft);
-  /* Появление "волной" при скролле: сдвиг вниз + прозрачность до попадания в
-     область видимости, задержка задаётся инлайн через transitionDelay. */
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease;
 }
 
 .cardVisible {
@@ -61,7 +62,7 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(240px at var(--mx, 50%) var(--my, 50%), rgba(252, 128, 3, 0.12), transparent 70%);
+  background: radial-gradient(260px at var(--mx, 50%) var(--my, 50%), rgba(252, 128, 3, 0.22), transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -72,7 +73,7 @@
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  border-color: rgba(252, 128, 3, 0.35);
 }
 
 .stars {
@@ -89,7 +90,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 1.45;
-  color: rgba(17, 17, 17, 0.75);
+  color: rgba(255, 255, 255, 0.75);
   flex: 1;
 }
 
@@ -100,7 +101,7 @@
   align-items: center;
   gap: 14px;
   padding-top: 4px;
-  border-top: 1px solid rgba(17, 17, 17, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .avatar {
@@ -120,25 +121,71 @@
   display: block;
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--white);
 }
 
 .role {
   display: block;
   font-size: 13px;
   font-weight: 500;
-  color: rgba(17, 17, 17, 0.5);
+  color: rgba(255, 255, 255, 0.5);
   margin-top: 1px;
 }
 
+.dots {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.25s ease, width 0.25s ease;
+}
+
+.dotActive {
+  background: var(--orange);
+  width: 20px;
+  border-radius: 999px;
+}
+
+/* ---------- Mobile-only horizontal carousel ---------- */
+/* По требованию клиента карусель со scroll-snap работает только на
+   мобильной/планшетной ширине. На десктопе выше — обычная сетка. */
 @media (max-width: 980px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 8px 8px 28px;
+    margin: -8px -8px 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(252, 128, 3, 0.5) transparent;
+  }
+  .track::-webkit-scrollbar {
+    height: 6px;
+  }
+  .track::-webkit-scrollbar-thumb {
+    background: rgba(252, 128, 3, 0.5);
+    border-radius: 999px;
+  }
+  .card {
+    flex: 0 0 auto;
+    width: min(380px, 82vw);
+    scroll-snap-align: start;
+  }
+  .dots {
+    display: flex;
   }
 }
 
 @media (max-width: 640px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .card {
+    width: 84vw;
   }
 }

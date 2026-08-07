@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header.jsx'
 import Footer from '../../components/Footer/Footer.jsx'
 import PageHero from '../../components/PageHero/PageHero.jsx'
 import JobSearch from './JobSearch.jsx'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
 import styles from './CareersPage.module.css'
 
 const JOBS = [
@@ -46,6 +47,8 @@ export default function CareersPage() {
     )
   }, [query])
 
+  const { containerRef, isVisible } = useRevealOnScroll(filteredJobs.length)
+
   return (
     <>
       <Header />
@@ -67,9 +70,12 @@ export default function CareersPage() {
             {filteredJobs.length === 0 ? (
               <p className={styles.empty}>По запросу «{query}» вакансий не найдено.</p>
             ) : (
-              <div className={styles.list}>
-                {filteredJobs.map((job) => (
-                <article key={job.title} className={styles.card}>
+              <div className={styles.list} ref={containerRef}>
+                {filteredJobs.map((job, i) => (
+                  <article
+                    key={job.title}
+                    className={`${styles.card} reveal ${isVisible(i) ? 'reveal-visible' : ''}`}
+                  >
                   <div className={styles.headRow}>
                     <h3 className={styles.jobTitle}>{job.title}</h3>
                     <span className={styles.locationBadge}>{job.location}</span>

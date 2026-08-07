@@ -1,4 +1,5 @@
 import { ArrowUpRight, BookOpen } from 'lucide-react'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
 import styles from './FinalCta.module.css'
 
 function handleGlowMove(e) {
@@ -9,10 +10,16 @@ function handleGlowMove(e) {
 }
 
 export default function FinalCta() {
+  const { containerRef, isVisible } = useRevealOnScroll(1)
+
   return (
     <section className={styles.section} id="contact">
       <div className="container">
-        <div className={styles.card} onMouseMove={handleGlowMove}>
+        <div
+          className={`${styles.card} reveal ${isVisible(0) ? 'reveal-visible' : ''}`}
+          ref={containerRef}
+          onMouseMove={handleGlowMove}
+        >
           <div className={styles.glow} aria-hidden="true" />
 
           <div className={styles.headGroup}>
