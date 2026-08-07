@@ -229,9 +229,14 @@
     inset: auto;
     left: auto;
     top: auto;
-    width: 100%;
+    /* Крупнее: выходим за внутренние отступы карточки на всю её ширину
+       и даём картинке больше высоты. */
+    width: calc(100% + 80px);
+    margin-left: -40px;
+    margin-right: -40px;
     height: auto;
-    aspect-ratio: 912 / 612;
+    aspect-ratio: 912 / 700;
+    object-fit: cover;
     transform: none;
     margin-top: 24px;
   }
