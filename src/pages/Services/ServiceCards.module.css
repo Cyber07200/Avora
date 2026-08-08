@@ -262,13 +262,29 @@
   .visual {
     height: 320px;
     flex: none;
+    /* Картинка должна доходить ровно до низа карточки. */
+    align-items: flex-end;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
   .content {
     flex: none;
     padding: 28px;
   }
+  /* Бейдж поднимается выше верхнего края карточки — так он не налезает
+     на заголовок и текст внутри неё. */
+  .badge {
+    top: -16px;
+    right: 12px;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  /* Место сверху под приподнятый бейдж. */
+  .cardWrap {
+    padding-top: 18px;
+  }
   .titleBlock {
-    padding-right: 100px;
+    padding-right: 0;
   }
 }
 
@@ -300,6 +316,8 @@
   inset: 0;
   background: radial-gradient(45% 60% at var(--mx, 47%) var(--my, 8%), rgba(252, 128, 3, 0.6), transparent 70%);
   filter: blur(60px);
+  /* Декоративный слой не должен перехватывать клики по кнопкам под ним. */
+  pointer-events: none;
 }
 
 .ctaContent {
@@ -452,5 +470,25 @@
   .storeVisualImg {
     height: 96%;
     margin: auto 0;
+  }
+}
+
+/* ---------- Планшеты и небольшие ноутбуки ---------- */
+/* Картинка тянулась по высоте карточки (width:auto), а колонка здесь узкая —
+   в кадр попадала только центральная полоса изображения. Вписываем целиком. */
+@media (min-width: 981px) and (max-width: 1300px) {
+  .visualImg {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    margin: auto;
+  }
+  .storeVisualImg {
+    height: auto;
+    margin: auto;
+  }
+  .content {
+    flex: 1.35;
   }
 }

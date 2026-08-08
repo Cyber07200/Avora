@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'react-router-dom'
 import { PhoneCall, Menu, X } from 'lucide-react'
 import Logo from './Logo.jsx'
@@ -98,27 +99,33 @@ export default function Header() {
         <X size={24} className={`${styles.burgerIcon} ${styles.burgerIconX} ${menuOpen ? '' : styles.iconHidden}`} />
       </button>
 
-      {menuMounted && (
-        <>
-          <div
-            className={`${styles.backdrop} ${menuOpen ? styles.backdropOpen : ''}`}
-            onClick={closeMenu}
-            aria-hidden="true"
-          />
+      {/* Меню рендерится порталом в body: у шапки есть backdrop-filter,
+          а он превращает её в точку отсчёта для position:fixed потомков —
+          из-за этого меню получало высоту шапки (84px) вместо высоты экрана,
+          и его содержимое вылезало за пределы панели. */}
+      {menuMounted &&
+        createPortal(
+          <>
+            <div
+              className={`${styles.backdrop} ${menuOpen ? styles.backdropOpen : ''}`}
+              onClick={closeMenu}
+              aria-hidden="true"
+            />
 
-          <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
-            <nav className={styles.drawerNav} aria-label="Мобильная навигация">
-              {NAV_ITEMS.map((item) =>
-                renderNavItem(item, { item: styles.drawerItem, active: styles.drawerItemActive })
-              )}
-            </nav>
-            <Link to="/contact" className={styles.drawerCta} onClick={closeMenu}>
-              <PhoneCall size={18} />
-              <span>Обсудить проект</span>
-            </Link>
-          </div>
-        </>
-      )}
+            <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
+              <nav className={styles.drawerNav} aria-label="Мобильная навигация">
+                {NAV_ITEMS.map((item) =>
+                  renderNavItem(item, { item: styles.drawerItem, active: styles.drawerItemActive })
+                )}
+              </nav>
+              <Link to="/contact" className={styles.drawerCta} onClick={closeMenu}>
+                <PhoneCall size={18} />
+                <span>Обсудить проект</span>
+              </Link>
+            </div>
+          </>,
+          document.body
+        )}
     </header>
   )
 }

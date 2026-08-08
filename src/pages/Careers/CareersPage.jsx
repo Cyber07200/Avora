@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import Header from '../../components/Header/Header.jsx'
@@ -93,9 +94,9 @@ export default function CareersPage() {
                         ))}
                       </div>
                     </div>
-                    <a href="#contact" className={styles.applyBtn}>
+                    <Link to="/contact" className={styles.applyBtn}>
                       Откликнуться
-                    </a>
+                    </Link>
                   </div>
                 </article>
               ))}
@@ -114,9 +115,9 @@ export default function CareersPage() {
                 Если вы хотите работать с нами над проектами - напишите. Кратко расскажите о себе
                 и своём опыте. Мы сохраним контакты и вернёмся, когда появится подходящая задача.
               </p>
-              <a href="#contact" className={styles.ctaBtn}>
+              <Link to="/contact" className={styles.ctaBtn}>
                 Написать <ArrowUpRight size={24} />
-              </a>
+              </Link>
             </article>
           </div>
         </section>

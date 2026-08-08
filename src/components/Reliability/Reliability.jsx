@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ShieldCheck, ArrowUpRight, Calendar, ArrowRight } from 'lucide-react'
 import contractPhoto from '../../assets/images/contract-photo.webp'
 import styles from './Reliability.module.css'
@@ -41,9 +42,9 @@ export default function Reliability() {
                   </span>
                 ))}
               </div>
-              <a href="#contact" className={styles.mainBtn}>
+              <Link to="/contact" className={styles.mainBtn}>
                 Оставить заявку <ArrowUpRight size={24} />
-              </a>
+              </Link>
             </div>
             <img src={contractPhoto} alt="" loading="lazy" className={styles.mainImg} />
           </article>
@@ -61,10 +62,10 @@ export default function Reliability() {
               <p className={styles.sideDesc}>
                 Дедлайны прописаны в договоре. Никаких «ещё немного» и переносов без согласования.
               </p>
-              <a href="#contact" className={styles.sideLink}>
+              <Link to="/contact" className={styles.sideLink}>
                 <span>Подробнее</span>
                 <ArrowRight size={24} className={styles.sideLinkArrow} />
-              </a>
+              </Link>
             </article>
 
             <article
@@ -80,10 +81,10 @@ export default function Reliability() {
                 Если что-то идёт не так — исправляем за свой счёт. Вы платите за готовый рабочий
                 продукт.
               </p>
-              <a href="#contact" className={styles.sideLink}>
+              <Link to="/contact" className={styles.sideLink}>
                 <span>Подробнее</span>
                 <ArrowRight size={24} className={styles.sideLinkArrow} />
-              </a>
+              </Link>
             </article>
           </div>
         </div>

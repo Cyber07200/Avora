@@ -191,6 +191,9 @@
     width: 100%;
     font-size: 18px;
     padding: 16px 24px;
+    /* Карточка скруглена на 60px при отступе 20px — вложенной кнопке
+       для соосных углов нужно 40px. */
+    border-radius: var(--radius-xl);
   }
   .reqPill {
     white-space: normal;

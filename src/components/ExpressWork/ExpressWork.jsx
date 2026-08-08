@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FastForward, Check, ArrowUpRight } from 'lucide-react'
 import laptopClock from '../../assets/images/express-laptop-clock.webp'
 import styles from './ExpressWork.module.css'
@@ -54,9 +55,9 @@ export default function ExpressWork() {
               <p className={styles.fineprint}>
                 В условия входит доплата за приоритет, фиксируем новый срок в договоре
               </p>
-              <a href="#contact" className={styles.cta}>
+              <Link to="/contact" className={styles.cta}>
                 Обсудить экспресс-срок <ArrowUpRight size={20} />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

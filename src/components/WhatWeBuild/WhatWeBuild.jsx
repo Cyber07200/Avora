@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { HelpCircle, ArrowUpRight } from 'lucide-react'
 import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
 import landingPreview from '../../assets/images/landing-preview.webp'
@@ -9,10 +10,10 @@ import styles from './WhatWeBuild.module.css'
 
 function PriceButton({ children, tone = 'orange' }) {
   return (
-    <a href="#contact" className={`${styles.priceBtn} ${styles[`tone-${tone}`]}`}>
+    <Link to="/contact" className={`${styles.priceBtn} ${styles[`tone-${tone}`]}`}>
       <span>{children}</span>
       <ArrowUpRight size={24} />
-    </a>
+    </Link>
   )
 }
 
@@ -166,10 +167,10 @@ export default function WhatWeBuild() {
                   готовый договр.
                 </p>
               </div>
-              <a href="#contact" className={styles.oneStepBtn}>
+              <Link to="/contact" className={styles.oneStepBtn}>
                 <span>Стоимость моего проекта</span>
                 <ArrowUpRight size={24} />
-              </a>
+              </Link>
             </article>
           </div>
         </div>

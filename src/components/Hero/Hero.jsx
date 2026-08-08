@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, BookOpen, Clock, Calendar, Check } from 'lucide-react'
 import heroPhoneMockup from '../../assets/images/hero-phone-mockup.webp'
 import RingShape from './RingShape.jsx'
@@ -35,9 +36,9 @@ export default function Hero() {
           </p>
 
           <div className={styles.ctaRow}>
-            <a href="#contact" className={styles.btnPrimary}>
+            <Link to="/contact" className={styles.btnPrimary}>
               Обсудить проект <ArrowUpRight size={24} />
-            </a>
+            </Link>
             <a href="#services" className={styles.btnDark}>
               Смотреть кейсы <BookOpen size={22} />
             </a>

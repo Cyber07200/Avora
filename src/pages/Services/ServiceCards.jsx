@@ -10,6 +10,7 @@
 // 3. Последняя (6-я) карточка — CTA "Расскажите о проекте", встроена в ту же
 //    sticky-стопку, но с другим содержимым (см. блок <article className={styles.cardCta}>).
 //    У неё есть свечение, следующее за курсором (handleCtaGlowMove).
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, BookOpen } from 'lucide-react'
 import landingPreview from '../../assets/serviceCards/landing.png'
 import laptopMockup from '../../assets/serviceCards/desktop-app.png'
@@ -230,10 +231,10 @@ export default function ServiceCards() {
                 </div>
                 <Features items={features} />
                 <span className={styles.priceText}>{price}</span>
-                <a href="#contact" className={styles.durationBtn}>
+                <Link to="/contact" className={styles.durationBtn}>
                   <span>{duration}</span>
                   <ArrowUpRight size={20} />
-                </a>
+                </Link>
               </div>
               <Visual />
             </article>
@@ -261,9 +262,9 @@ export default function ServiceCards() {
               сориентируем по срокам и стоимости.
             </p>
             <div className={styles.ctaRow}>
-              <a href="#contact" className={styles.ctaBtnPrimary}>
+              <Link to="/contact" className={styles.ctaBtnPrimary}>
                 Обсудить проект <ArrowUpRight size={24} />
-              </a>
+              </Link>
               <a href="/#services" className={styles.ctaBtnGlass}>
                 Смотреть кейсы <BookOpen size={22} />
               </a>

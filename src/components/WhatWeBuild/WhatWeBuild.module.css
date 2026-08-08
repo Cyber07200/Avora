@@ -524,3 +524,25 @@
     object-position: bottom center;
   }
 }
+
+/* ---------- Планшеты: декор заполняет низ и бока карточки ---------- */
+/* На планшете колонки уже, чем на десктопе, и декоративные области
+   («Веб сервисы», «Telegram-боты») выглядели мелкими и обрезанными —
+   растягиваем их на всю ширину карточки до самого низа. */
+@media (min-width: 981px) and (max-width: 1400px) {
+  .bubbleField,
+  .marquee {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52%;
+  }
+  .webservicesImg,
+  .telegramImg {
+    object-fit: cover;
+    object-position: center bottom;
+    transform: scale(1.12);
+    transform-origin: center bottom;
+  }
+}

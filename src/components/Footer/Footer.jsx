@@ -19,7 +19,7 @@ const STUDIO_COL = {
     { label: 'Кейсы', href: '/cases' },
     { label: 'Отзывы', href: '/#why-us' },
     { label: 'Этапы работы', href: '/#process' },
-    { label: 'Оставить заявку', href: '/#contact' },
+    { label: 'Оставить заявку', href: '/contact' },
   ],
 }
 

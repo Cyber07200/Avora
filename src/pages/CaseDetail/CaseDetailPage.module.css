@@ -19,9 +19,16 @@
 }
 
 .heroCard {
-  background: var(--gradient-hero-card);
+  display: block;
   border-radius: var(--radius-3xl);
-  padding: clamp(28px, 4vw, 48px);
+  overflow: hidden;
+  line-height: 0;
+}
+
+.heroCardImg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .title {
@@ -152,7 +159,8 @@
   overflow: hidden;
   background: var(--gradient-hero-card);
   border-radius: var(--radius-3xl);
-  padding: clamp(40px, 5vw, 64px);
+  --cta-pad: clamp(40px, 5vw, 64px);
+  padding: var(--cta-pad);
   display: flex;
   align-items: center;
   gap: 40px;
@@ -206,103 +214,28 @@
   z-index: 1;
   flex: 1;
   min-width: 0;
-  min-height: 320px;
-  align-self: stretch;
   display: flex;
-  align-items: center;
   justify-content: center;
+  /* Картинка стоит вплотную к нижнему краю карточки (отрицательный отступ
+     гасит внутренний padding) и выезжает прямо из него: в скрытом
+     состоянии она целиком уведена вниз и обрезана границей карточки. */
+  align-self: flex-end;
+  margin-bottom: calc(var(--cta-pad) * -1);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ctaPhone {
-  position: relative;
-  width: 44%;
-  aspect-ratio: 1294 / 2656;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+.ctaVisualIn {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.ctaPhoneScreen,
-.ctaPhoneFrame {
-  position: absolute;
-  inset: 0;
+.ctaVisualImg {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.ctaPhoneScreen {
-  border-radius: 12% / 6%;
-}
-
-.ctaNotif {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: min(340px, 78%);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-lg);
-  padding: 14px 18px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
-
-.ctaNotif1 {
-  top: 14%;
-  left: 2%;
-}
-
-.ctaNotif2 {
-  bottom: 18%;
-  right: 2%;
-}
-
-.ctaNotifCheck {
-  flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  color: var(--white);
-}
-
-.ctaNotifText {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.ctaNotifText strong {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--white);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ctaNotifText span {
-  font-size: 12px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ctaNotifTime {
-  flex-shrink: 0;
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  align-self: flex-start;
+  height: auto;
+  max-width: 520px;
+  display: block;
 }
 
 
@@ -363,21 +296,12 @@
   }
   .ctaVisual {
     width: 100%;
-    min-height: 260px;
-    order: -1;
+    min-height: 0;
+    /* На мобильном текст сверху, картинка под ним. */
+    order: 1;
   }
-  .ctaPhone {
-    width: 34%;
-  }
-  .ctaNotif {
-    padding: 10px 14px;
-    gap: 8px;
-  }
-  .ctaNotifText strong {
-    font-size: 13px;
-  }
-  .ctaNotifText span {
-    font-size: 11px;
+  .ctaText {
+    order: 0;
   }
   .ctaRow {
     flex-direction: column;

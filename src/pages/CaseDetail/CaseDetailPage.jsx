@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
-import { ArrowLeft, ArrowUpRight, BookOpen, Check, Clock, Code2, Smartphone } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, BookOpen, Check } from 'lucide-react'
 import Header from '../../components/Header/Header.jsx'
 import Footer from '../../components/Footer/Footer.jsx'
 import { CASES } from '../../data/cases.js'
-import caseCover from '../../assets/images/case-kids-cover.webp'
-import phoneFrame from '../../assets/images/phone-frame-empty.webp'
-import phoneScreen from '../../assets/images/phone-screen-home.webp'
+import caseHeroWide from '../../assets/images/case-hero-wide.webp'
+import caseHeroMobile from '../../assets/images/case-hero-mobile.webp'
+import ctaNotifCard from '../../assets/images/cta-notif-card.webp'
 import styles from './CaseDetailPage.module.css'
 
 function handleGlowMove(e) {
@@ -19,6 +19,28 @@ function handleGlowMove(e) {
 export default function CaseDetailPage() {
   const { slug } = useParams()
   const caseItem = CASES.find((c) => c.slug === slug)
+
+  // Картинка в блоке «Нужен похожий проект?» плавно выезжает снизу, когда
+  // блок попадает в область видимости при прокрутке.
+  const ctaVisualRef = useRef(null)
+  const [ctaVisible, setCtaVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ctaVisualRef.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setCtaVisible(true)
+      return
+    }
+    // Наблюдатель не отключается после первого срабатывания: когда блок
+    // уходит вверх за пределы экрана, картинка так же плавно уезжает вниз.
+    const observer = new IntersectionObserver(
+      ([entry]) => setCtaVisible(entry.isIntersecting),
+      { rootMargin: '0px 0px -12% 0px', threshold: 0 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [slug])
 
   // Плавно поднимаем страницу наверх при переходе между кейсами (например,
   // по кнопке "Следующий кейс") — иначе остался бы прежний скролл.
@@ -41,26 +63,13 @@ export default function CaseDetailPage() {
               <span>Назад</span>
             </Link>
 
-            <div className={styles.heroCard}>
-              <h1 className={styles.title}>{caseItem.title}</h1>
-
-              <div className={styles.statsRow}>
-                <span className={styles.stat}>
-                  <Clock size={18} />
-                  {caseItem.tags[0]}
-                </span>
-                <span className={styles.stat}>
-                  <Code2 size={18} />
-                  {caseItem.tags[1]}
-                </span>
-                <span className={styles.stat}>
-                  <Smartphone size={18} />
-                  {caseItem.category}
-                </span>
-              </div>
-
-              <img src={caseCover} alt={caseItem.title} className={styles.coverImg} />
-            </div>
+            {/* Картинка сама и есть карточка — заголовок и теги уже
+                нарисованы на ней, поэтому дублировать их текстом не нужно.
+                На узких экранах подставляется вертикальная версия. */}
+            <picture className={styles.heroCard}>
+              <source media="(max-width: 900px)" srcSet={caseHeroMobile} />
+              <img src={caseHeroWide} alt={caseItem.title} className={styles.heroCardImg} />
+            </picture>
           </div>
         </section>
 
@@ -120,31 +129,12 @@ export default function CaseDetailPage() {
                   </Link>
                 </div>
               </div>
-              <div className={styles.ctaVisual} aria-hidden="true">
-                <div className={styles.ctaPhone}>
-                  <img src={phoneScreen} alt="" className={styles.ctaPhoneScreen} />
-                  <img src={phoneFrame} alt="" className={styles.ctaPhoneFrame} />
-                </div>
-                <div className={`${styles.ctaNotif} ${styles.ctaNotif1}`}>
-                  <span className={styles.ctaNotifCheck}>
-                    <Check size={14} strokeWidth={3} />
-                  </span>
-                  <span className={styles.ctaNotifText}>
-                    <strong>Понятная реализация</strong>
-                    <span>В самый короткий срок</span>
-                  </span>
-                  <span className={styles.ctaNotifTime}>9:41 AM</span>
-                </div>
-                <div className={`${styles.ctaNotif} ${styles.ctaNotif2}`}>
-                  <span className={styles.ctaNotifCheck}>
-                    <Check size={14} strokeWidth={3} />
-                  </span>
-                  <span className={styles.ctaNotifText}>
-                    <strong>Надежность на каждом этапе</strong>
-                    <span>Работаем строго по договору</span>
-                  </span>
-                  <span className={styles.ctaNotifTime}>9:41 AM</span>
-                </div>
+              <div
+                className={`${styles.ctaVisual} ${ctaVisible ? styles.ctaVisualIn : ''}`}
+                ref={ctaVisualRef}
+                aria-hidden="true"
+              >
+                <img src={ctaNotifCard} alt="" className={styles.ctaVisualImg} />
               </div>
             </div>
           </div>
