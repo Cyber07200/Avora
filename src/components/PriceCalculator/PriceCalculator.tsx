@@ -8,9 +8,6 @@ import styles from './PriceCalculator.module.css'
 
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0XjPrY42JKvPcuBM7LMhpIVEDoe22eB4OV_ZrHXmyYv58htmeGR5nRitTsx0iwUED2A/exec'
 
-<<<<<<< HEAD:src/components/PriceCalculator/PriceCalculator.jsx
-const STEPS = [
-=======
 interface Step {
   key: string
   question: string
@@ -26,7 +23,6 @@ interface Contact {
 }
 
 const STEPS: Step[] = [
->>>>>>> ca97724 (TSX):src/components/PriceCalculator/PriceCalculator.tsx
   {
     key: 'type',
     question: 'Тип проекта',
@@ -87,11 +83,7 @@ export default function PriceCalculator() {
     if (step > 1) setStep(step - 1)
   }
 
-<<<<<<< HEAD:src/components/PriceCalculator/PriceCalculator.jsx
-  const handleSubmit = async (e) => {
-=======
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
->>>>>>> ca97724 (TSX):src/components/PriceCalculator/PriceCalculator.tsx
     e.preventDefault()
 
     if (loading) return
