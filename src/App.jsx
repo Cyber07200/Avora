@@ -6,6 +6,7 @@ import CaseDetailPage from './pages/CaseDetail/CaseDetailPage.jsx'
 import CareersPage from './pages/Careers/CareersPage.jsx'
 import ContactPage from './pages/Contact/ContactPage.jsx'
 import ScrollToTop from './ScrollToTop.jsx'
+import ThanksPage from './pages/ThanksPage/ThanksPage'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/cases/:slug" element={<CaseDetailPage />} />
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/thanks" element={<ThanksPage />} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ArrowUpRight, Send, Mail, PhoneCall } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import Header from '../../components/Header/Header.jsx'
 import Footer from '../../components/Footer/Footer.jsx'
 import ctaLaptop from '../../assets/images/cta-laptop.webp'
@@ -7,14 +8,63 @@ import iphoneRock from '../../assets/images/iphone-rock-mockup.png'
 import styles from './ContactPage.module.css'
 
 export default function ContactPage() {
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [value, setValue] = useState('')
   const [sent, setSent] = useState(false)
+  const [contact, setContact] = useState('')
+  const [name, setName] = useState('')
 
-  function handleSubmit(e) {
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweW73C-C9D8yhzMm7a9wTmq0LDvZXjqBqWla1XQP-DTRyxRmE4Rs2Gcu9EcamrAaGTCw/exec'
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!value.trim()) return
-    // Реальной отправки на бэкенд здесь нет — это визуальный прототип формы.
-    setSent(true)
+
+    if (!contact.trim() || loading) return
+
+    setLoading(true)
+
+    try {
+      const utm = JSON.parse(
+        localStorage.getItem('utm_data') || 'null'
+      )
+
+      const payload = {
+        formType: 'contact',
+
+        date: new Date().toLocaleString('ru-RU'),
+
+        utm: utm
+          ? Object.entries(utm)
+            .filter(
+              ([key, value]) =>
+                (key.startsWith('utm_') || key === 'yclid') &&
+                value
+            )
+            .map(([key, value]) => `${key}=${value}`)
+            .join(' | ')
+          : '',
+
+        contact,
+        name,
+      }
+
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      navigate('/thanks')
+    } catch (error) {
+      console.error(error)
+      alert('Ошибка отправки заявки')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -42,15 +92,39 @@ export default function ContactPage() {
                 </label>
                 <input
                   id="contact-value"
-                  type="text"
+                  type="tel"
                   className={styles.input}
                   placeholder="+7 (000) 000-00-00 / @NICK_TG"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
                 />
-                <button type="submit" className={styles.submit}>
-                  <span>{sent ? 'Заявка отправлена' : 'Оставить заявку'}</span>
-                  <ArrowUpRight size={22} />
+                <label className={styles.fieldLabel} htmlFor="name-value">
+                  Как к вам обращаться?
+                </label>
+                <input
+                  id="name-value"
+                  type="text"
+                  className={styles.input}
+                  placeholder="Иван Иванович"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className={styles.submit}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <span className={styles.loader}></span>
+                      Отправка...
+                    </>
+                  ) : (
+                    <>
+                      <span>Оставить заявку</span>
+                      <ArrowUpRight size={22} />
+                    </>
+                  )}
                 </button>
               </form>
             </div>

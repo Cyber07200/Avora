@@ -5,6 +5,8 @@ import iphoneRockMockup from '../../assets/images/iphone-rock-mockup.png'
 import landingPreview from '../../assets/images/landing-preview.webp'
 import styles from './PriceCalculator.module.css'
 
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0XjPrY42JKvPcuBM7LMhpIVEDoe22eB4OV_ZrHXmyYv58htmeGR5nRitTsx0iwUED2A/exec'
+
 const STEPS = [
   {
     key: 'type',
@@ -47,6 +49,7 @@ export default function PriceCalculator() {
   const [contact, setContact] = useState({ name: '', telegram: '' })
   const [submitted, setSubmitted] = useState(false)
   const { containerRef, isVisible } = useRevealOnScroll(1)
+  const [loading, setLoading] = useState(false)
 
   const isQuestionStep = step <= STEPS.length
   const current = STEPS[step - 1]
@@ -60,12 +63,61 @@ export default function PriceCalculator() {
   const handleNext = () => {
     if (step < TOTAL_STEPS) setStep(step + 1)
   }
+
   const handleBack = () => {
     if (step > 1) setStep(step - 1)
   }
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+
+    if (loading) return
+
+    setLoading(true)
+
+    try {
+      const utm = JSON.parse(
+        localStorage.getItem('utm_data') || 'null'
+      )
+
+      const payload = {
+        date: new Date().toLocaleString('ru-RU'),
+
+        utm: utm
+          ? Object.entries(utm)
+            .filter(
+              ([key, value]) =>
+                key.startsWith('utm_') && value
+            )
+            .map(([key, value]) => `${key}=${value}`)
+            .join(' | ')
+          : '',
+
+        type: answers.type || '',
+        budget: answers.budget || '',
+        timeline: answers.timeline || '',
+        needs: answers.needs || '',
+
+        contact: contact.telegram,
+        name: contact.name,
+      }
+
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      setSubmitted(true)
+    } catch (error) {
+      console.error(error)
+      alert('Ошибка отправки')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -98,9 +150,8 @@ export default function PriceCalculator() {
                   return (
                     <li key={n} className={styles.stepperItem}>
                       <span
-                        className={`${styles.stepDot} ${active ? styles.stepDotActive : ''} ${
-                          done ? styles.stepDotDone : ''
-                        }`}
+                        className={`${styles.stepDot} ${active ? styles.stepDotActive : ''} ${done ? styles.stepDotDone : ''
+                          }`}
                       >
                         {done ? <Check size={14} /> : n}
                       </span>
@@ -184,9 +235,22 @@ export default function PriceCalculator() {
                       <ArrowLeft size={20} />
                       Назад
                     </button>
-                    <button type="submit" className={styles.nextBtn}>
-                      Отправить заявку
-                      <ArrowRight size={20} />
+                    <button
+                      type="submit"
+                      className={styles.nextBtn}
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <>
+                          <span className={styles.loader}></span>
+                          Отправка...
+                        </>
+                      ) : (
+                        <>
+                          Отправить заявку
+                          <ArrowRight size={20} />
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
