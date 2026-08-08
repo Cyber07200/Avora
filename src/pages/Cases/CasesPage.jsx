@@ -62,11 +62,17 @@ export default function CasesPage() {
                       <h3 className={styles.title}>{c.title}</h3>
                       <p className={styles.desc}>{c.desc}</p>
                       <div className={styles.tags}>
-                        {c.tags.map((t) => (
+                        {c.tags.slice(0, 2).map((t) => (
                           <span key={t} className={styles.tag}>
                             {t}
                           </span>
                         ))}
+
+                        {c.tags.length > 2 && (
+                          <span className={`${styles.tag} ${styles.tagMore}`}>
+                            +{c.tags.length - 2}
+                          </span>
+                        )}
                       </div>
                     </div>
                     <Link to={`/cases/${c.slug}`} className={styles.viewBtn}>

@@ -124,20 +124,6 @@ export default function Reviews() {
               </article>
             ))}
           </div>
-
-          <div className={styles.dots} role="tablist" aria-label="Прокрутка отзывов">
-            {REVIEWS.map((r, i) => (
-              <button
-                key={r.name}
-                type="button"
-                role="tab"
-                aria-label={`Отзыв ${i + 1}`}
-                aria-selected={activeDot === i}
-                className={`${styles.dot} ${activeDot === i ? styles.dotActive : ''}`}
-                onClick={() => scrollToCard(i)}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </section>

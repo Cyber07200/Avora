@@ -36,10 +36,10 @@ export default function FinalCta() {
           </p>
 
           <div className={styles.ctaRow}>
-            <a href="#calculator" className={styles.btnPrimary}>
+            <a href="/contact" className={styles.btnPrimary}>
               Обсудить проект <ArrowUpRight size={24} />
             </a>
-            <a href="#services" className={styles.btnGlass}>
+            <a href="/cases" className={styles.btnGlass}>
               Смотреть кейсы <BookOpen size={22} />
             </a>
           </div>

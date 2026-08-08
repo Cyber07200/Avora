@@ -82,6 +82,7 @@
   .header {
     justify-content: space-between;
   }
+
   .nav,
   .cta {
     display: none;
@@ -97,8 +98,9 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-md);
-  background: rgba(17, 17, 17, 0.06);
+  border-radius: 18px;
+  border: none;
+  background: var(--gray-700);
   color: var(--text-primary);
 }
 
@@ -111,6 +113,7 @@
 .burgerIcon {
   position: absolute;
   transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--white);
 }
 
 .burgerIconX {
@@ -148,26 +151,42 @@
 /* ---------- Drawer ---------- */
 .drawer {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0 0 0 auto;
   z-index: 151;
-  width: min(360px, 86vw);
+  width: min(420px, 100vw);
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 40px;
-  padding: 40px 32px;
-  /* Светлое прозрачное меню со стеклянным размытием фона. */
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(24px) saturate(1.6);
-  -webkit-backdrop-filter: blur(24px) saturate(1.6);
-  border-left: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.18);
-  /* На низких экранах содержимое должно оставаться доступным. */
+  padding: 32px;
+  background:
+    radial-gradient(circle at top right,
+      rgba(255, 115, 0, 0.18),
+      transparent 40%),
+    rgba(10, 10, 12, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(30px);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: -40px 0 80px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
   transform: translateX(100%);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawerTop {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.logoMobile {
+  height: 22px;
+  width: auto;
+  flex-shrink: 0;
+  color: #FFF;
+}
+
+.drawerOpen {
+  transform: translateX(0);
 }
 
 .drawerOpen {
@@ -177,20 +196,31 @@
 .drawerNav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  margin-bottom: auto;
 }
 
 .drawerItem,
 .drawerItemActive {
-  padding: 16px 20px;
-  border-radius: var(--radius-md);
-  font-size: 22px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  padding: 0 20px;
+  border-radius: 24px;
+  font-size: 20px;
   font-weight: 500;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  letter-spacing: -0.03em;
+  transition: all 0.3s ease;
 }
 
 .drawerItem {
-  color: rgba(17, 17, 17, 0.65);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.drawerItem:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .drawerItem:active {
@@ -198,26 +228,95 @@
 }
 
 .drawerItemActive {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  color: white;
+  background:
+    linear-gradient(135deg,
+      rgba(255, 115, 0, 0.16),
+      rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 20px 40px rgba(255, 115, 0, 0.12);
 }
 
 .drawerCta {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: var(--gradient-orange);
-  color: var(--bg-light);
-  padding: 18px 20px;
-  border-radius: var(--radius-lg);
+  gap: 12px;
+  margin-top: 32px;
+  height: 64px;
+  border-radius: 22px;
+  background: linear-gradient(135deg,
+      #ff7a18,
+      #ff9d3d);
+  color: #fff;
+  font-size: 17px;
   font-weight: 600;
-  font-size: 18px;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(255, 122, 24, 0.35);
+  transition: all .3s ease;
+}
+
+.drawerCta:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 20px 60px rgba(255, 122, 24, 0.45);
 }
 
 .drawerCta:active {
   transform: scale(0.97);
+}
+
+.drawerInfo {
+  margin-top: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.drawerInfo a {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  transition: .2s;
+}
+
+.drawerInfo a:hover {
+  color: white;
+}
+
+.drawerOpen .drawerItem,
+.drawerOpen .drawerItemActive {
+  animation: menuItemIn .45s both;
+}
+
+.drawerOpen .drawerItem:nth-child(1) {
+  animation-delay: .05s;
+}
+
+.drawerOpen .drawerItem:nth-child(2) {
+  animation-delay: .1s;
+}
+
+.drawerOpen .drawerItem:nth-child(3) {
+  animation-delay: .15s;
+}
+
+.drawerOpen .drawerItem:nth-child(4) {
+  animation-delay: .2s;
+}
+
+@keyframes menuItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

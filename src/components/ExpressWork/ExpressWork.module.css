@@ -11,7 +11,7 @@
 }
 
 .headIcon {
-  color: var(--orange);
+  color: var(--gray-950);
   flex-shrink: 0;
 }
 
@@ -52,7 +52,7 @@
   font-weight: 600;
   line-height: 1.25;
   color: var(--white);
-  max-width: 62ch;
+  max-width: 50ch;
 }
 
 .pointsBlock {
@@ -75,6 +75,7 @@
      переносилась на следующую: втроём в один ряд они доходили до картинки
      ноутбука справа и налезали на неё. */
   max-width: min(100%, 820px);
+  transform: translateX(-5%);
 }
 
 .point {

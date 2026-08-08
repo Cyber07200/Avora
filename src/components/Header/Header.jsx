@@ -113,6 +113,9 @@ export default function Header() {
             />
 
             <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
+              <div className={styles.drawerTop}>
+                <Logo className={styles.logoMobile}/>
+              </div>
               <nav className={styles.drawerNav} aria-label="Мобильная навигация">
                 {NAV_ITEMS.map((item) =>
                   renderNavItem(item, { item: styles.drawerItem, active: styles.drawerItemActive })
@@ -122,6 +125,15 @@ export default function Header() {
                 <PhoneCall size={18} />
                 <span>Обсудить проект</span>
               </Link>
+              <div className={styles.drawerInfo}>
+                <a href="tel:+79319792764">
+                  +7 (931) 979-27-64
+                </a>
+
+                <a href="mailto:avora-lab@gmail.com">
+                  avora-lab@gmail.com
+                </a>
+              </div>
             </div>
           </>,
           document.body

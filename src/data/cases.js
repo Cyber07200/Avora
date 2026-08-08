@@ -1,4 +1,4 @@
-import caseCardCover from '../assets/images/case-card-cover.webp'
+import caseCardCover from '../assets/images/case-card-cover.png'
 
 // slug — используется в URL (/cases/:slug), поэтому должен быть уникальным
 // и состоять из латиницы/дефисов.

@@ -67,7 +67,9 @@
 
 .form {
   margin-top: 40px;
-  background: var(--gradient-hero-card);
+  background: linear-gradient(to bottom right, #1212147c, #50525681);
+  backdrop-filter: blur(10px);
+  border: solid 1px #ffffff2a;
   border-radius: var(--radius-3xl);
   padding: 40px;
   display: flex;
