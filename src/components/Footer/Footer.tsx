@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Send, Mail } from 'lucide-react'
-import Logo from '../Header/Logo.jsx'
+import Logo from '../Header/Logo'
 import styles from './Footer.module.css'
 
 const NAV_COL = {

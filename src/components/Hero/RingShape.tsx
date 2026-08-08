@@ -1,4 +1,4 @@
-export default function RingShape({ className }) {
+export default function RingShape({ className }: { className?: string }) {
   return (
     <svg
       className={className}

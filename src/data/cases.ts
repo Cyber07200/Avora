@@ -20,7 +20,7 @@ export const CASES = [
       'Интеграция с уведомлениями',
       'Адаптация под разные устройства',
     ],
-    technologies: ['Next.js', 'Telegram', 'Адаптивный дизайн', 'Уведомления'],
+    technologies: ['Next', 'Telegram', 'Адаптивный дизайн', 'Уведомления'],
   },
   {
     slug: 'product-launch-landing',
@@ -58,7 +58,7 @@ export const CASES = [
       'Личный кабинет покупателя',
       'Интеграция с доставкой',
     ],
-    technologies: ['Next.js', 'CMS', 'Онлайн-оплата', 'Интеграция с доставкой'],
+    technologies: ['Next', 'CMS', 'Онлайн-оплата', 'Интеграция с доставкой'],
   },
   {
     slug: 'b2b-dashboard',
@@ -77,7 +77,7 @@ export const CASES = [
       'Админ-панель без разработчиков',
       'Масштабируемая архитектура',
     ],
-    technologies: ['Node.js', 'React', 'Роли и доступы', 'Админ-панель'],
+    technologies: ['Node', 'React', 'Роли и доступы', 'Админ-панель'],
   },
   {
     slug: 'service-app',
@@ -115,6 +115,6 @@ export const CASES = [
       'Интеграция с CRM',
       'Уведомления менеджерам',
     ],
-    technologies: ['Node.js', 'Telegram Bot API', 'CRM', 'Оплата в боте'],
+    technologies: ['Node', 'Telegram Bot API', 'CRM', 'Оплата в боте'],
   },
 ]

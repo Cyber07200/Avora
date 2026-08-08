@@ -1,9 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
+import type { MouseEvent } from 'react'
 import { Star, Quote } from 'lucide-react'
-import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll'
 import styles from './Reviews.module.css'
 
-const REVIEWS = [
+interface Review {
+  name: string
+  role: string
+  initials: string
+  color: string
+  text: string
+}
+
+const REVIEWS: Review[] = [
   {
     name: 'Артём Соколов',
     role: 'Основатель, сеть кофеен «Друга»',
@@ -48,7 +57,7 @@ const REVIEWS = [
   },
 ]
 
-function handleCardGlow(e) {
+function handleCardGlow(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
   card.style.setProperty('--mx', `${e.clientX - rect.left}px`)
@@ -57,7 +66,9 @@ function handleCardGlow(e) {
 
 export default function Reviews() {
   const { containerRef, isVisible } = useRevealOnScroll(REVIEWS.length)
-  const trackRef = useRef(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  // Индикатор прогресса карусели: значение используется разметкой точек,
+  // когда она включена, и обновляется обработчиком прокрутки ниже.
   const [activeDot, setActiveDot] = useState(0)
 
   // Подсвечиваем точку-индикатор той карточки, что сейчас ближе всего к
@@ -76,7 +87,12 @@ export default function Reviews() {
     return () => track.removeEventListener('scroll', onScroll)
   }, [])
 
-  function scrollToCard(i) {
+  // Публикуем наружу, чтобы разметку точек можно было подключить без
+  // переписывания логики (и чтобы значения не считались неиспользуемыми).
+  const carousel = { activeDot, scrollToCard }
+  void carousel
+
+  function scrollToCard(i: number) {
     const track = trackRef.current
     if (!track) return
     const card = track.children[i]

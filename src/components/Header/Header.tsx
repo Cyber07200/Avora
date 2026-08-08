@@ -2,10 +2,20 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'react-router-dom'
 import { PhoneCall, Menu, X } from 'lucide-react'
-import Logo from './Logo.jsx'
+import Logo from './Logo'
 import styles from './Header.module.css'
 
-const NAV_ITEMS = [
+interface NavItem {
+  label: string
+  href: string
+}
+
+interface NavClassNames {
+  item: string
+  active: string
+}
+
+const NAV_ITEMS: NavItem[] = [
   { label: 'Главная', href: '/' },
   { label: 'Услуги', href: '/services' },
   { label: 'Кейсы', href: '/cases' },
@@ -43,7 +53,7 @@ export default function Header() {
     if (!menuOpen) return
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeMenu()
     }
     window.addEventListener('keydown', onKey)
@@ -54,7 +64,7 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuOpen])
 
-  function renderNavItem(item, className) {
+  function renderNavItem(item: NavItem, className: NavClassNames) {
     const isActive = item.href === '/' ? pathname === '/' : pathname === item.href
     const cls = isActive ? className.active : className.item
     if (item.href.startsWith('/#')) {

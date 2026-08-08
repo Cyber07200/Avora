@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type React from 'react'
 
 const MOBILE_BREAKPOINT = 980
 
@@ -15,9 +16,22 @@ const MOBILE_BREAKPOINT = 980
  * @param {number} threshold — доля видимости контейнера для срабатывания (0-1)
  * @returns {{ containerRef, isVisible: (i: number) => boolean }}
  */
-export function useRevealOnScroll(count, { staggerMs = 90 } = {}) {
-  const containerRef = useRef(null)
-  const [visible, setVisible] = useState(() => new Array(count).fill(false))
+interface RevealOptions {
+  /** Задержка между появлением соседних карточек, мс */
+  staggerMs?: number
+}
+
+interface RevealResult<T extends HTMLElement = HTMLDivElement> {
+  containerRef: React.RefObject<T | null>
+  isVisible: (index: number) => boolean
+}
+
+export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
+  count: number,
+  { staggerMs = 90 }: RevealOptions = {}
+): RevealResult<T> {
+  const containerRef = useRef<T>(null)
+  const [visible, setVisible] = useState<boolean[]>(() => new Array(count).fill(false))
 
   useEffect(() => {
     const el = containerRef.current

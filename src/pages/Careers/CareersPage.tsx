@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import Header from '../../components/Header/Header.jsx'
-import Footer from '../../components/Footer/Footer.jsx'
-import PageHero from '../../components/PageHero/PageHero.jsx'
-import JobSearch from './JobSearch.jsx'
-import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
+import PageHero from '../../components/PageHero/PageHero'
+import JobSearch from './JobSearch'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll'
 import styles from './CareersPage.module.css'
 
 const JOBS = [
@@ -16,7 +16,7 @@ const JOBS = [
     salary: 'От 80 000 рублей/месяц',
     requirements: [
       'Уверенный HTML, CSS, JavaScript',
-      'React или Next.js',
+      'React или Next',
       'Умение работать с макетами (Figma)',
       'Ответственность за сроки',
       'Понимание адаптивной вёрстки',

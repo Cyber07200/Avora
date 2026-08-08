@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, BookOpen, Clock, Calendar, Check } from 'lucide-react'
 import heroPhoneMockup from '../../assets/images/hero-phone-mockup.webp'
-import RingShape from './RingShape.jsx'
+import RingShape from './RingShape'
 import styles from './Hero.module.css'
 
 const FLOATING_BADGES = [

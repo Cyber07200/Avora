@@ -492,3 +492,69 @@
     flex: 1.35;
   }
 }
+
+/* ---------- Планшет: картинка в правом нижнем углу карточки ---------- */
+/* Карточка складывается в колонку, и картинка прижимается к правому
+   нижнему углу — так она читается целиком и не спорит с текстом. */
+@media (min-width: 700px) and (max-width: 980px) {
+  .visual {
+    height: 300px;
+    align-items: flex-end;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  .visualImg,
+  .storeVisualImg,
+  .expressImg {
+    position: static;
+    width: auto;
+    height: 100%;
+    max-width: 88%;
+    object-fit: contain;
+    object-position: right bottom;
+    margin: 0 0 0 auto;
+    transform: none;
+  }
+  .expressImg {
+    transform: rotate(180deg);
+    transform-origin: center;
+  }
+}
+
+/* ---------- Ноутбуки с невысоким экраном ---------- */
+/* На 13-14" экранах (высота 800-900px) карточка в 724px вместе с отступом
+   прилипания (96px) не помещалась в видимую область — низ с ценой и кнопкой
+   перекрывался следующей карточкой стопки. Здесь карточка компактнее. */
+@media (min-width: 981px) and (max-height: 900px) {
+  .card {
+    min-height: 0;
+  }
+  .content {
+    padding: 28px 0 28px 40px;
+    gap: 14px;
+  }
+  .title {
+    font-size: clamp(22px, 1.9vw, 28px);
+  }
+  .desc {
+    font-size: 17px;
+  }
+  .featuresBlock {
+    gap: 10px;
+  }
+  .featurePill {
+    font-size: 16px;
+    padding: 9px 16px;
+  }
+  .priceText {
+    font-size: 19px;
+  }
+  .durationBtn {
+    font-size: 17px;
+    padding: 13px 22px;
+  }
+  .cardCta {
+    height: auto;
+    min-height: 0;
+  }
+}

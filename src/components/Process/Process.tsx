@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react'
 import { LineChart, Search, PenTool, Code, Ruler, Play } from 'lucide-react'
 import stage1 from '../../assets/images/stage-1-analysis.webp'
 import stage2 from '../../assets/images/stage-2-design.webp'
@@ -6,7 +7,7 @@ import stage4 from '../../assets/images/stage-4-testing.webp'
 import stage5 from '../../assets/images/stage-5-launch.webp'
 import styles from './Process.module.css'
 
-function handleCardGlow(e) {
+function handleCardGlow(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
   card.style.setProperty('--mx', `${e.clientX - rect.left}px`)

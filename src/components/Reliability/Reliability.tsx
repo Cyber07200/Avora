@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { ShieldCheck, ArrowUpRight, Calendar, ArrowRight } from 'lucide-react'
 import contractPhoto from '../../assets/images/contract-photo.webp'
@@ -5,7 +6,7 @@ import styles from './Reliability.module.css'
 
 const TAGS = ['Полноценный договор', 'Смета', 'Четкое ТЗ', 'Поэтапные отчеты', 'Грантия качества']
 
-function handleCardGlow(e) {
+function handleCardGlow(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
   card.style.setProperty('--mx', `${e.clientX - rect.left}px`)

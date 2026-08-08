@@ -1,3 +1,4 @@
+import type { CSSVars } from '../../types'
 import { useEffect, useState } from 'react'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
 import styles from './CaseSearchFilter.module.css'
@@ -14,10 +15,20 @@ const PROJECT_TYPES = [
 const PRICE_MIN = 7000
 const PRICE_MAX = 150000
 
-export default function CaseSearchFilter({ onChange }) {
+export interface CaseFilters {
+  query: string
+  selectedTypes: string[]
+  priceFrom: number
+}
+
+export default function CaseSearchFilter({
+  onChange,
+}: {
+  onChange?: (filters: CaseFilters) => void
+}) {
   const [query, setQuery] = useState('')
   const [filtersOpen, setFiltersOpen] = useState(false)
-  const [selectedTypes, setSelectedTypes] = useState([])
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([])
   const [priceFrom, setPriceFrom] = useState(PRICE_MIN)
 
   const hasActiveFilters = selectedTypes.length > 0 || priceFrom > PRICE_MIN
@@ -28,7 +39,7 @@ export default function CaseSearchFilter({ onChange }) {
     onChange?.({ query, selectedTypes, priceFrom })
   }, [query, selectedTypes, priceFrom])
 
-  function toggleType(type) {
+  function toggleType(type: string) {
     setSelectedTypes((prev) =>
       prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     )
@@ -114,9 +125,11 @@ export default function CaseSearchFilter({ onChange }) {
               value={priceFrom}
               onChange={(e) => setPriceFrom(Number(e.target.value))}
               className={styles.slider}
-              style={{
-                '--fill': `${((priceFrom - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
-              }}
+              style={
+                {
+                  '--fill': `${((priceFrom - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
+                } as CSSVars
+              }
             />
             <span className={styles.priceValue}>{priceFrom.toLocaleString('ru-RU')} ₽</span>
           </div>

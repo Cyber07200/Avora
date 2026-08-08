@@ -1,13 +1,32 @@
 import { useState } from 'react'
+import type { FormEvent } from 'react'
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
-import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll'
 import iphoneRockMockup from '../../assets/images/iphone-rock-mockup.png'
 import landingPreview from '../../assets/images/landing-preview.webp'
 import styles from './PriceCalculator.module.css'
 
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx0XjPrY42JKvPcuBM7LMhpIVEDoe22eB4OV_ZrHXmyYv58htmeGR5nRitTsx0iwUED2A/exec'
 
+<<<<<<< HEAD:src/components/PriceCalculator/PriceCalculator.jsx
 const STEPS = [
+=======
+interface Step {
+  key: string
+  question: string
+  options: string[]
+}
+
+/** Ответы пользователя: ключ шага -> выбранный вариант. */
+type Answers = Record<string, string>
+
+interface Contact {
+  name: string
+  telegram: string
+}
+
+const STEPS: Step[] = [
+>>>>>>> ca97724 (TSX):src/components/PriceCalculator/PriceCalculator.tsx
   {
     key: 'type',
     question: 'Тип проекта',
@@ -45,8 +64,8 @@ const TOTAL_STEPS = STEPS.length + 1 // + contact step
 
 export default function PriceCalculator() {
   const [step, setStep] = useState(1)
-  const [answers, setAnswers] = useState({ type: 'Лендинг / промо-сайт' })
-  const [contact, setContact] = useState({ name: '', telegram: '' })
+  const [answers, setAnswers] = useState<Answers>({ type: 'Лендинг / промо-сайт' })
+  const [contact, setContact] = useState<Contact>({ name: '', telegram: '' })
   const [submitted, setSubmitted] = useState(false)
   const { containerRef, isVisible } = useRevealOnScroll(1)
   const [loading, setLoading] = useState(false)
@@ -54,7 +73,7 @@ export default function PriceCalculator() {
   const isQuestionStep = step <= STEPS.length
   const current = STEPS[step - 1]
 
-  const selectOption = (key, value) => {
+  const selectOption = (key: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [key]: value }))
   }
 
@@ -68,7 +87,11 @@ export default function PriceCalculator() {
     if (step > 1) setStep(step - 1)
   }
 
+<<<<<<< HEAD:src/components/PriceCalculator/PriceCalculator.jsx
   const handleSubmit = async (e) => {
+=======
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+>>>>>>> ca97724 (TSX):src/components/PriceCalculator/PriceCalculator.tsx
     e.preventDefault()
 
     if (loading) return

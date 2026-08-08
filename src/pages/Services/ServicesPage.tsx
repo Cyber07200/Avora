@@ -1,7 +1,7 @@
-import Header from '../../components/Header/Header.jsx'
-import Footer from '../../components/Footer/Footer.jsx'
-import PageHero from '../../components/PageHero/PageHero.jsx'
-import ServiceCards from './ServiceCards.jsx'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
+import PageHero from '../../components/PageHero/PageHero'
+import ServiceCards from './ServiceCards'
 import styles from './ServicesPage.module.css'
 
 export default function ServicesPage() {

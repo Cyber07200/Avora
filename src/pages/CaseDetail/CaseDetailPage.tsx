@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
+import type { MouseEvent } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight, BookOpen, Check } from 'lucide-react'
-import Header from '../../components/Header/Header.jsx'
-import Footer from '../../components/Footer/Footer.jsx'
-import { CASES } from '../../data/cases.js'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
+import { CASES } from '../../data/cases'
 import caseHeroWide from '../../assets/images/case-hero-wide.webp'
 import caseHeroMobile from '../../assets/images/case-hero-mobile.webp'
 import ctaNotifCard from '../../assets/images/cta-notif-card.webp'
 import styles from './CaseDetailPage.module.css'
 
-function handleGlowMove(e) {
+function handleGlowMove(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
   card.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`)

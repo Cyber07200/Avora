@@ -1,3 +1,5 @@
+import type { CSSVars } from '../../types'
+import type { MouseEvent } from 'react'
 // ServiceCards — карточки услуг на странице "Услуги".
 //
 // Как это устроено:
@@ -24,19 +26,19 @@ import styles from './ServiceCards.module.css'
 // Tracks the cursor position over the CTA card and exposes it as CSS custom
 // properties (--mx / --my), so the radial-gradient glow in .ctaGlow can
 // follow the mouse — same technique as FinalCta on the home page.
-function handleCtaGlowMove(e) {
+function handleCtaGlowMove(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
   card.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`)
   card.style.setProperty('--my', `${((e.clientY - rect.top) / rect.height) * 100}%`)
 }
 
-function Features({ items }) {
+function Features({ items }: { items: string[] }) {
   return (
     <div className={styles.featuresBlock}>
       <span className={styles.featuresLabel}>Что входит</span>
       <div className={styles.featuresList}>
-        {items.map((f) => (
+        {items.map((f: string) => (
           <span key={f} className={styles.featurePill}>
             {f}
           </span>
@@ -221,7 +223,7 @@ export default function ServiceCards() {
             className={styles.cardWrap}
             style={{ top: `${96 + i * 28}px`, zIndex: i + 1 }}
           >
-            <article className={`${styles.card} ${styles[cardClass]}`} style={{ '--text-w': `${textWidth}px` }}>
+            <article className={`${styles.card} ${styles[cardClass]}`} style={{ '--text-w': `${textWidth}px` } as CSSVars}>
               <div className={styles.content}>
                 <div className={styles.titleBlock}>
                   <div className={styles.headRow}>

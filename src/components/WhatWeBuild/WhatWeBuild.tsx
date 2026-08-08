@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react'
+import type { MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { HelpCircle, ArrowUpRight } from 'lucide-react'
-import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll'
 import landingPreview from '../../assets/images/landing-preview.webp'
 import iphoneStackNew from '../../assets/images/iphone-stack-new.webp'
 import laptopMockup from '../../assets/images/laptop-app-mockup.webp'
@@ -8,7 +10,7 @@ import webservicesIcons from '../../assets/images/webservices-icons.svg'
 import telegramPills from '../../assets/images/telegram-pills.svg'
 import styles from './WhatWeBuild.module.css'
 
-function PriceButton({ children, tone = 'orange' }) {
+function PriceButton({ children, tone = 'orange' }: { children: ReactNode; tone?: string }) {
   return (
     <Link to="/contact" className={`${styles.priceBtn} ${styles[`tone-${tone}`]}`}>
       <span>{children}</span>
@@ -17,7 +19,7 @@ function PriceButton({ children, tone = 'orange' }) {
   )
 }
 
-function handleCardGlow(e) {
+function handleCardGlow(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
   card.style.setProperty('--mx', `${e.clientX - rect.left}px`)
@@ -28,7 +30,7 @@ export default function WhatWeBuild() {
   // 6 карточек: 5 услуг + CTA "Остался один шаг" — все проявляются волной
   // снизу вверх при попадании секции в область видимости.
   const { containerRef, isVisible } = useRevealOnScroll(6)
-  const revealCls = (i) => `reveal ${isVisible(i) ? 'reveal-visible' : ''}`
+  const revealCls = (i: number) => `reveal ${isVisible(i) ? 'reveal-visible' : ''}`
 
   return (
     <section className={styles.section} id="services">

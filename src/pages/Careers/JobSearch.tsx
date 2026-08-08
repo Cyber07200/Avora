@@ -1,7 +1,7 @@
 import { Search, X } from 'lucide-react'
 import styles from './JobSearch.module.css'
 
-export default function JobSearch({ value, onChange }) {
+export default function JobSearch({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
     <div className={styles.searchInput}>
       <Search size={16} />

@@ -1,16 +1,17 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
-import Header from '../../components/Header/Header.jsx'
-import Footer from '../../components/Footer/Footer.jsx'
-import PageHero from '../../components/PageHero/PageHero.jsx'
-import CaseSearchFilter from './CaseSearchFilter.jsx'
-import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
-import { CASES } from '../../data/cases.js'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
+import PageHero from '../../components/PageHero/PageHero'
+import CaseSearchFilter from './CaseSearchFilter'
+import type { CaseFilters } from './CaseSearchFilter'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll'
+import { CASES } from '../../data/cases'
 import styles from './CasesPage.module.css'
 
 export default function CasesPage() {
-  const [filters, setFilters] = useState({ query: '', selectedTypes: [], priceFrom: 7000 })
+  const [filters, setFilters] = useState<CaseFilters>({ query: '', selectedTypes: [], priceFrom: 7000 })
 
   const filtered = useMemo(() => {
     const q = filters.query.trim().toLowerCase()

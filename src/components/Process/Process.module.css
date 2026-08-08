@@ -142,13 +142,14 @@
     margin-left: -8px;
     margin-right: -8px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(252, 128, 3, 0.5) transparent;
+    /* Такой же нейтральный ползунок, как в карусели отзывов. */
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   }
   .row::-webkit-scrollbar {
     height: 6px;
   }
   .row::-webkit-scrollbar-thumb {
-    background: rgba(252, 128, 3, 0.5);
+    background: rgb(255, 255, 255);
     border-radius: 999px;
   }
   .card {

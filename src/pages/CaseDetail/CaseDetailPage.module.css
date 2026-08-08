@@ -129,7 +129,8 @@
 .featureItem svg {
   flex-shrink: 0;
   margin-top: 3px;
-  color: var(--orange);
+  /* Галочки в «Особенностях» — нейтрально-серые, а не акцентные. */
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .techRow {

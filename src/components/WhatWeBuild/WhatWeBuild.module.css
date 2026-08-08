@@ -546,3 +546,81 @@
     transform-origin: center bottom;
   }
 }
+
+/* ---------- Ноутбуки: карточки растут под содержимое ---------- */
+/* На 13-15" ширина колонки меньше, чем на десктопе, и жёсткая пропорция
+   (aspect-ratio 850/300) давала всего ~200px высоты — цена и кнопка
+   уходили за нижний край и обрезались. Здесь пропорция заменена на
+   минимальную высоту, а типографика немного компактнее. */
+@media (min-width: 981px) and (max-width: 1500px) {
+  .cardShort {
+    aspect-ratio: auto;
+    min-height: 300px;
+  }
+  .bottomRow {
+    aspect-ratio: auto;
+  }
+  .bottomWide,
+  .bottomNarrow {
+    min-height: 300px;
+  }
+  .card {
+    padding: 28px 32px 32px;
+    gap: 14px;
+  }
+  .cardTitleDark,
+  .cardTitleLight {
+    font-size: clamp(22px, 2vw, 28px);
+  }
+  .narrowTitle1Line,
+  .narrowTitle2Line {
+    font-size: clamp(20px, 1.8vw, 26px);
+  }
+  .cardTextDark,
+  .cardTextLight,
+  .narrowCardText {
+    font-size: 15px;
+  }
+  .priceBtn {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+  .oneStepTitle {
+    font-size: 22px;
+  }
+  .oneStepBtn {
+    font-size: 15px;
+    padding: 12px 18px;
+  }
+  .softBadge {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* ---------- Планшет: узкие карточки остаются в паре ---------- */
+/* На планшете правая колонка складывалась в столбец, и «Веб сервисы» с
+   «Telegram-боты» вытягивались в непропорционально высокие блоки.
+   Здесь они снова стоят рядом друг с другом. */
+@media (min-width: 700px) and (max-width: 980px) {
+  .rightCol {
+    flex-direction: row;
+  }
+  .cardNarrowTall {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 480px;
+    padding-bottom: 200px;
+  }
+  .cardNarrowTall .bubbleField,
+  .cardNarrowTall .marquee {
+    height: 190px;
+  }
+  .narrowTitle1Line,
+  .narrowTitle2Line {
+    font-size: 22px;
+  }
+  .cardNarrowTall .narrowCardText {
+    font-size: 15px;
+  }
+}

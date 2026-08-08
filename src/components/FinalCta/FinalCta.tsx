@@ -1,8 +1,9 @@
+import type { MouseEvent } from 'react'
 import { ArrowUpRight, BookOpen } from 'lucide-react'
-import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll'
 import styles from './FinalCta.module.css'
 
-function handleGlowMove(e) {
+function handleGlowMove(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
   card.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`)

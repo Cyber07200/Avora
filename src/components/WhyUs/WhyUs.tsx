@@ -1,9 +1,17 @@
+import type { LucideIcon } from 'lucide-react'
+import type { MouseEvent as ReactMouseEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { HelpCircle, FastForward, Layers, FileText, Calendar, Code, BarChart3 } from 'lucide-react'
-import { useRevealOnScroll } from '../../hooks/useRevealOnScroll.js'
+import { useRevealOnScroll } from '../../hooks/useRevealOnScroll'
 import styles from './WhyUs.module.css'
 
-const CARDS = [
+interface WhyUsCardData {
+  icon: LucideIcon
+  title: string
+  text: string
+}
+
+const CARDS: WhyUsCardData[] = [
   {
     icon: FastForward,
     title: 'Быстрая разработка',
@@ -36,8 +44,8 @@ const CARDS = [
   },
 ]
 
-function WhyUsCard({ icon: Icon, title, text, className }) {
-  const cardRef = useRef(null)
+function WhyUsCard({ icon: Icon, title, text, className }: WhyUsCardData & { className?: string }) {
+  const cardRef = useRef<HTMLDivElement>(null)
   // На мобильных нет курсора для hover — вместо этого карточка сама
   // "загорается" оранжевым свечением, когда оказывается в центре экрана
   // при прокрутке. Работает через IntersectionObserver с узкой полосой
@@ -58,7 +66,7 @@ function WhyUsCard({ icon: Icon, title, text, className }) {
     return () => observer.disconnect()
   }, [])
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: ReactMouseEvent<HTMLDivElement>) => {
     const card = cardRef.current
     if (!card) return
     const rect = card.getBoundingClientRect()
