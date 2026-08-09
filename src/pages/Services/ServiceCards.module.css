@@ -262,10 +262,26 @@
   .visual {
     height: 320px;
     flex: none;
-    /* Картинка должна доходить ровно до низа карточки. */
     align-items: flex-end;
     margin-bottom: 0;
     padding-bottom: 0;
+  }
+  /* Картинка шире своей области, и flex сжимал её по горизонтали —
+     высота падала пропорционально (294px вместо 320px), из-за чего снизу
+     оставалась полоса пустоты. Запрещаем сжатие: картинка сохраняет полную
+     высоту и упирается в низ карточки, а лишнее по бокам обрезается
+     контейнером (у него overflow: hidden). */
+  .visualImg,
+  .storeVisualImg {
+    flex-shrink: 0;
+    height: 100%;
+    align-self: flex-end;
+    object-position: bottom center;
+  }
+  .expressImg {
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%) rotate(180deg);
   }
   .content {
     flex: none;
@@ -453,23 +469,19 @@
 }
 
 /* ---------- Mobile-only image sizing ---------- */
-/* На мобильном картинка Экспресс-карточки была прижата к правому краю и
-   обрезалась — центрируем её и даём больше места. */
+/* Картинка Экспресс-карточки центрируется по горизонтали и прижимается
+   к низу карточки.
+   Прежние правила height:92%/96% с margin:auto здесь были удалены — именно
+   они не давали картинкам дойти до нижнего края (оставляли полосу 6-13px)
+   и, находясь ниже по файлу, перебивали правила основного мобильного блока. */
 @media (max-width: 980px) {
   .expressImg {
     right: auto;
     left: 50%;
-    top: 50%;
+    top: auto;
+    bottom: 0;
     width: 88%;
-    transform: translate(-50%, -50%) rotate(180deg);
-  }
-  .visualImg {
-    height: 92%;
-    margin: auto 0;
-  }
-  .storeVisualImg {
-    height: 96%;
-    margin: auto 0;
+    transform: translateX(-50%) rotate(180deg);
   }
 }
 
@@ -477,16 +489,25 @@
 /* Картинка тянулась по высоте карточки (width:auto), а колонка здесь узкая —
    в кадр попадала только центральная полоса изображения. Вписываем целиком. */
 @media (min-width: 981px) and (max-width: 1300px) {
+  /* Картинка прижата к правому нижнему углу карточки. */
+  .visual {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
   .visualImg {
     width: 100%;
     height: auto;
     max-height: 100%;
     object-fit: contain;
-    margin: auto;
+    object-position: right bottom;
+    margin: auto 0 0 auto;
   }
+  /* margin:auto центрировал стопку айфонов по вертикали — отсюда зазор
+     до нижнего края карточки. Прижимаем её к низу. */
   .storeVisualImg {
     height: auto;
-    margin: auto;
+    margin: auto 0 0 auto;
+    object-position: right bottom;
   }
   .content {
     flex: 1.35;
@@ -556,5 +577,15 @@
   .cardCta {
     height: auto;
     min-height: 0;
+  }
+}
+
+
+/* ---------- Ноутбуки: CTA-карточка ---------- */
+/* Ноутбуки по углам были слишком крупными и заходили на текст. */
+@media (min-width: 981px) and (max-width: 1700px) {
+  .ctaLaptopLeft,
+  .ctaLaptopRight {
+    width: 24%;
   }
 }

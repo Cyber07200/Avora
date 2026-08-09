@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { MouseEvent } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
-import { ArrowLeft, ArrowUpRight, BookOpen, Check } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, BookOpen, Check, Clock, Layers, LayoutGrid } from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import { CASES } from '../../data/cases'
@@ -59,14 +59,35 @@ export default function CaseDetailPage() {
       <main>
         <section className={styles.heroSection}>
           <div className="container">
-            <Link to="/cases" className={styles.backLink}>
-              <ArrowLeft size={18} />
-              <span>Назад</span>
-            </Link>
+            {/* Шапка кейса: слева кнопка-таблетка «Назад» и название,
+                справа три таблетки — срок, стек и тип проекта. */}
+            <div className={styles.heroTopBar}>
+              <div className={styles.heroTopLeft}>
+                <Link to="/cases" className={styles.backPill}>
+                  <ArrowLeft size={16} />
+                  <span>Назад</span>
+                </Link>
+                <h1 className={styles.heroTitle}>{caseItem.title}</h1>
+              </div>
 
-            {/* Картинка сама и есть карточка — заголовок и теги уже
-                нарисованы на ней, поэтому дублировать их текстом не нужно.
-                На узких экранах подставляется вертикальная версия. */}
+              <div className={styles.heroMeta}>
+                <span className={styles.metaPill}>
+                  <Clock size={20} />
+                  <span>{caseItem.tags[0]}</span>
+                </span>
+                <span className={styles.metaPill}>
+                  <Layers size={20} />
+                  <span>{caseItem.tags[1]}</span>
+                </span>
+                <span className={styles.metaPill}>
+                  <LayoutGrid size={20} />
+                  <span>{caseItem.category}</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Картинка сама и есть карточка — на узких экранах
+                подставляется вертикальная версия. */}
             <picture className={styles.heroCard}>
               <source media="(max-width: 900px)" srcSet={caseHeroMobile} />
               <img src={caseHeroWide} alt={caseItem.title} className={styles.heroCardImg} />

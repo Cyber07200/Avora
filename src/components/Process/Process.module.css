@@ -160,3 +160,41 @@
     height: auto;
   }
 }
+
+/* ---------- Ноутбуки: все пять карточек в один ряд ---------- */
+/* Карточки слегка уменьшены по ширине, но вытянуты по высоте — так все
+   пять помещаются в одну строку без прокрутки, а картинка и текст
+   внутри остаются читаемыми. */
+@media (min-width: 981px) and (max-width: 1700px) {
+  .row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    aspect-ratio: auto;
+    overflow-x: visible;
+  }
+  .card {
+    aspect-ratio: 3 / 5;
+    height: auto;
+    width: auto;
+    padding: 16px 16px 0;
+  }
+  .title {
+    font-size: 17px;
+  }
+  .text {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .number {
+    font-size: 34px;
+  }
+  .iconBubble {
+    width: 46px;
+    height: 46px;
+  }
+  .iconBubble svg {
+    width: 20px;
+    height: 20px;
+  }
+}
