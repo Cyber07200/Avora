@@ -1,17 +1,6 @@
 import type { CSSVars } from '../../types'
 import type { MouseEvent } from 'react'
-// ServiceCards — карточки услуг на странице "Услуги".
-//
-// Как это устроено:
-// 1. Массив SERVICES (ниже) — данные всех 5 карточек услуг (заголовок,
-//    описание, список фич, цена, срок) + компонент Visual для картинки справа.
-// 2. Каждая карточка — это position:sticky элемент с НАРАСТАЮЩИМ отступом
-//    top (96px, 124px, 152px...) и z-index. За счёт этого при обычной
-//    прокрутке страницы карточки "прилипают" одна поверх другой, создавая
-//    эффект стопки — без единой строчки JS, чистый CSS.
-// 3. Последняя (6-я) карточка — CTA "Расскажите о проекте", встроена в ту же
-//    sticky-стопку, но с другим содержимым (см. блок <article className={styles.cardCta}>).
-//    У неё есть свечение, следующее за курсором (handleCtaGlowMove).
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, BookOpen } from 'lucide-react'
 import landingPreview from '../../assets/serviceCards/landing.png'
@@ -21,11 +10,9 @@ import expressLaptopClock from '../../assets/images/express-laptop-clock.webp'
 import iphoneStackNew from '../../assets/serviceCards/web-shop.png'
 import webservicesIcons from '../../assets/serviceCards/web-service.png'
 import telegramBots from '../../assets/serviceCards/telegram-bots.png'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import styles from './ServiceCards.module.css'
 
-// Tracks the cursor position over the CTA card and exposes it as CSS custom
-// properties (--mx / --my), so the radial-gradient glow in .ctaGlow can
-// follow the mouse — same technique as FinalCta on the home page.
 function handleCtaGlowMove(e: MouseEvent<HTMLElement>) {
   const card = e.currentTarget
   const rect = card.getBoundingClientRect()
@@ -214,42 +201,86 @@ const SERVICES = [
 ]
 
 export default function ServiceCards() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  })
+
   return (
-    <div className={styles.list}>
-      {SERVICES.map(
-        ({ key, title, badge, desc, features, price, duration, cardClass, textWidth, Visual }, i) => (
-          <div
-            key={key}
+    <div className={styles.list} ref={containerRef}>
+      {SERVICES.map((service, i) => {
+        const total = SERVICES.length
+        const start = i / total
+        const end = (i + 1) / total
+
+        const scale = useTransform(
+          scrollYProgress,
+          [0, start, end, 1],
+          [1, 1, 0.7, 0.7]     
+        )
+
+        const opacity = useTransform(
+          scrollYProgress,
+          [0, start, end, 1],
+          [1, 1, 0, 0]
+        )
+
+        return (
+          <motion.div
+            key={service.key}
             className={styles.cardWrap}
-            style={{ top: `${96 + i * 28}px`, zIndex: i + 1 }}
+            style={{
+              top: `${100 + i}px`,
+              zIndex: i + 1,
+              scale,
+              opacity,
+            }}
           >
-            <article className={`${styles.card} ${styles[cardClass]}`} style={{ '--text-w': `${textWidth}px` } as CSSVars}>
+            <article
+              className={`${styles.card} ${styles[service.cardClass]}`}
+              style={
+                {
+                  '--text-w': `${service.textWidth}px`,
+                } as CSSVars
+              }
+            >
               <div className={styles.content}>
                 <div className={styles.titleBlock}>
                   <div className={styles.headRow}>
-                    <h3 className={styles.title}>{title}</h3>
+                    <h3 className={styles.title}>{service.title}</h3>
                   </div>
-                  <p className={styles.desc}>{desc}</p>
+                  <p className={styles.desc}>{service.desc}</p>
                 </div>
-                <Features items={features} />
-                <span className={styles.priceText}>{price}</span>
+
+                <Features items={service.features} />
+
+                <span className={styles.priceText}>{service.price}</span>
+
                 <Link to="/contact" className={styles.durationBtn}>
-                  <span>{duration}</span>
+                  <span>{service.duration}</span>
                   <ArrowUpRight size={20} />
                 </Link>
               </div>
-              <Visual />
-            </article>
-            {/* Badge lives outside the card's own overflow:hidden so it can
-                stick out past the rounded corner like an attached label. */}
-            {badge && <span className={styles.badge}>{badge}</span>}
-          </div>
-        )
-      )}
 
+              <service.Visual />
+            </article>
+
+            {service.badge && (
+              <span className={styles.badge}>{service.badge}</span>
+            )}
+          </motion.div>
+        )
+      })}
+
+      {/* CTA-карточка */}
       <article
         className={`${styles.card} ${styles.cardCta}`}
-        style={{ top: `${96 + SERVICES.length * 28}px`, zIndex: SERVICES.length + 1 }}
+        style={{
+          top: `${100 + SERVICES.length * 16}px`,
+          zIndex: SERVICES.length + 1,
+        }}
       >
         <div className={styles.ctaBg} onMouseMove={handleCtaGlowMove}>
           <div className={styles.ctaGlow} aria-hidden="true" />

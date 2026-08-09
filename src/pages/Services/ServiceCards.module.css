@@ -1,12 +1,5 @@
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  margin-top: 50px;
-}
-
-.cardWrap {
-  position: sticky;
+  position: relative;
 }
 
 .card {
@@ -16,7 +9,16 @@
   display: flex;
   align-items: stretch;
   min-height: 400px;
-  will-change: transform;
+  will-change: transform, opacity;
+  transform-origin: center top;
+  /* transition: transform 0.35s ease, opacity 0.35s ease;  ← УДАЛИ или закомментируй */
+}
+
+.cardWrap {
+  position: sticky;
+  margin-bottom: 60px;
+  transform-origin: center top;
+  will-change: transform, opacity;
 }
 
 .cardWhite {
@@ -83,8 +85,8 @@
 
 .badge {
   position: absolute;
-  top: 22px;
-  right: -14px;
+  top: 30px;
+  right: 30px;
   z-index: 3;
   display: inline-flex;
   align-items: center;
@@ -92,8 +94,6 @@
   border-radius: var(--radius-md);
   background-image: linear-gradient(-30deg, #111111, #5c5c5c7c);
   color: rgb(255, 255, 255);
-  transform: rotate(4deg);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
   font-size: 24px;
   font-weight: 500;
   white-space: nowrap;
@@ -243,6 +243,7 @@
 
 
 @media (max-width: 980px) {
+
   /* Sticky-стопка отключена на мобильном: карточки здесь выше экрана
      (1100-1400px против 844px), поэтому "прилипшая" карточка уходила
      низом за пределы вьюпорта, а следующая карточка накрывала её сверху —
@@ -253,12 +254,15 @@
     top: auto !important;
     margin-bottom: 20px;
   }
+
   .card {
     position: relative;
     top: auto !important;
     flex-direction: column;
+    transform: none !important;
     align-items: stretch;
   }
+
   .visual {
     height: 320px;
     flex: none;
@@ -266,6 +270,7 @@
     margin-bottom: 0;
     padding-bottom: 0;
   }
+
   /* Картинка шире своей области, и flex сжимал её по горизонтали —
      высота падала пропорционально (294px вместо 320px), из-за чего снизу
      оставалась полоса пустоты. Запрещаем сжатие: картинка сохраняет полную
@@ -278,15 +283,18 @@
     align-self: flex-end;
     object-position: bottom center;
   }
+
   .expressImg {
     top: auto;
     bottom: 0;
     transform: translateX(-50%) rotate(180deg);
   }
+
   .content {
     flex: none;
     padding: 28px;
   }
+
   /* Бейдж поднимается выше верхнего края карточки — так он не налезает
      на заголовок и текст внутри неё. */
   .badge {
@@ -295,10 +303,12 @@
     font-size: 14px;
     padding: 8px 16px;
   }
+
   /* Место сверху под приподнятый бейдж. */
   .cardWrap {
     padding-top: 18px;
   }
+
   .titleBlock {
     padding-right: 0;
   }
@@ -439,6 +449,7 @@
     min-height: 0;
     overflow: hidden;
   }
+
   .ctaLaptopLeft,
   .ctaLaptopRight {
     display: none;
@@ -446,6 +457,7 @@
 }
 
 @media (max-width: 520px) {
+
   /* Long feature pills (e.g. the Express-development card's bullets) would
      otherwise get cut off at the screen edge since pills default to
      nowrap — let them wrap onto a second line instead of hiding text. */
@@ -489,11 +501,13 @@
 /* Картинка тянулась по высоте карточки (width:auto), а колонка здесь узкая —
    в кадр попадала только центральная полоса изображения. Вписываем целиком. */
 @media (min-width: 981px) and (max-width: 1300px) {
+
   /* Картинка прижата к правому нижнему углу карточки. */
   .visual {
     align-items: flex-end;
     justify-content: flex-end;
   }
+
   .visualImg {
     width: 100%;
     height: auto;
@@ -502,6 +516,7 @@
     object-position: right bottom;
     margin: auto 0 0 auto;
   }
+
   /* margin:auto центрировал стопку айфонов по вертикали — отсюда зазор
      до нижнего края карточки. Прижимаем её к низу. */
   .storeVisualImg {
@@ -509,6 +524,7 @@
     margin: auto 0 0 auto;
     object-position: right bottom;
   }
+
   .content {
     flex: 1.35;
   }
@@ -524,6 +540,7 @@
     justify-content: flex-end;
     overflow: hidden;
   }
+
   .visualImg,
   .storeVisualImg,
   .expressImg {
@@ -536,6 +553,7 @@
     margin: 0 0 0 auto;
     transform: none;
   }
+
   .expressImg {
     transform: rotate(180deg);
     transform-origin: center;
@@ -550,30 +568,38 @@
   .card {
     min-height: 0;
   }
+
   .content {
     padding: 28px 0 28px 40px;
     gap: 14px;
   }
+
   .title {
     font-size: clamp(22px, 1.9vw, 28px);
   }
+
   .desc {
     font-size: 17px;
   }
+
   .featuresBlock {
     gap: 10px;
   }
+
   .featurePill {
     font-size: 16px;
     padding: 9px 16px;
   }
+
   .priceText {
     font-size: 19px;
   }
+
   .durationBtn {
     font-size: 17px;
     padding: 13px 22px;
   }
+
   .cardCta {
     height: auto;
     min-height: 0;
@@ -584,6 +610,7 @@
 /* ---------- Ноутбуки: CTA-карточка ---------- */
 /* Ноутбуки по углам были слишком крупными и заходили на текст. */
 @media (min-width: 981px) and (max-width: 1700px) {
+
   .ctaLaptopLeft,
   .ctaLaptopRight {
     width: 24%;
