@@ -570,120 +570,144 @@
    уходили за нижний край и обрезались. Здесь пропорция заменена на
    минимальную высоту, а типографика немного компактнее. */
 @media (min-width: 981px) and (max-width: 1700px) {
-  /* На ноутбуках карточки идут по две в ряд: так каждой достаётся вдвое
-     больше ширины, текст не сталкивается с картинкой, а изображение
-     помещается целиком в нижней части карточки. */
-  .topRow {
-    flex-direction: column;
-  }
-  .leftCol,
-  .rightCol {
-    flex-direction: row;
+  /* Раскладка та же, что на десктопе (две широкие карточки слева, две
+     узкие справа, широкая + компактная внизу) — меняются только размеры:
+     карточки чуть выше, типографика и картинки подогнаны под меньшую
+     ширину колонок, чтобы текст не сталкивался с изображением. */
+  .cardShort {
+    aspect-ratio: auto;
+    min-height: 260px;
   }
   .bottomRow {
-    grid-template-columns: 1fr 1fr;
+    aspect-ratio: auto;
   }
-  .cardShort,
-  .cardNarrowTall,
   .bottomWide,
   .bottomNarrow {
-    flex: 1 1 0;
-    min-width: 0;
+    min-height: 260px;
   }
-  /* Картинка занимает низ карточки на всю ширину. */
-  .landingArt,
-  .storeArt,
-  .laptopArt {
-    left: 0;
-    right: 0;
+  .card {
+    padding: 26px 30px 30px;
+    gap: 12px;
+  }
+  .cardTitleDark,
+  .cardTitleLight {
+    font-size: clamp(19px, 1.6vw, 24px);
+    max-width: 58%;
+  }
+  .narrowTitle1Line,
+  .narrowTitle2Line {
+    font-size: clamp(17px, 1.4vw, 21px);
+  }
+  .cardTextDark,
+  .cardTextLight {
+    font-size: 14px;
+    max-width: 56%;
+  }
+  .narrowCardText {
+    font-size: 13px;
+  }
+  .priceBtn {
+    font-size: 15px;
+    padding: 11px 18px;
+  }
+  .oneStepTitle {
+    font-size: 20px;
+  }
+  .oneStepBtn {
+    font-size: 14px;
+    padding: 11px 16px;
+  }
+  .softBadge {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+  /* Цены не должны переноситься на вторую строку. */
+  .priceBtn {
+    white-space: nowrap;
+  }
+  .priceBtn span {
+    white-space: nowrap;
+  }
+  /* Картинки лежат справа, как в оригинале, но компактнее — чтобы
+     оставить текстовой колонке достаточно места. Ноутбук вписан целиком
+     и слегка отодвинут от правого края, иначе он упирался в границу
+     карточки и обрезался. */
+  .landingArt {
+    width: 52%;
+    left: auto;
+    right: -4%;
     top: auto;
     bottom: 0;
-    width: auto;
-    height: 190px;
+    height: 78%;
   }
-  .landingArt img,
-  .laptopArt img,
-  .storeStackImg {
-    position: absolute;
+  .landingArt img {
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: bottom center;
+    object-position: right bottom;
     transform: none;
   }
-  /* Ноутбук в «Лендингах» смещён к правому краю карточки. */
-  .landingArt img,
-  .laptopArt img {
-    object-position: bottom right;
-  }
-  /* Айфоны — вплотную к нижнему краю, чуть крупнее для баланса. */
   .storeArt {
-    height: 210px;
+    width: 34%;
+    left: auto;
+    right: 2%;
+    top: auto;
+    bottom: 0;
+    height: 88%;
   }
   .storeStackImg {
+    object-fit: contain;
     object-position: bottom center;
-    transform: scale(1.08);
-    transform-origin: bottom center;
   }
-  .cardShort {
-    aspect-ratio: auto;
-    min-height: 430px;
-    padding-bottom: 210px;
+  /* Клавиатура выходила за нижний край карточки на 110-120px — вписываем
+     её целиком, прижав к низу. */
+  .laptopArt {
+    width: 46%;
+    left: auto;
+    right: -2%;
+    top: auto;
+    bottom: 0;
+    height: 82%;
   }
-  .bottomWide,
-  .bottomNarrow {
-    min-height: 430px;
+  .laptopArt img {
+    /* inset:0 обязателен: в базовом стиле у картинки top/left 50%,
+       которые компенсировались трансформацией. Убрав transform, но не
+       сбросив позицию, картинка съезжала вниз ровно на половину высоты. */
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: right bottom;
+    transform: none;
   }
-  .bottomWide {
-    padding-bottom: 210px;
+  /* Иконки в «Веб-сервисах» обрезались краями — уменьшаем поле. */
+  .bubbleField {
+    top: auto;
+    bottom: 0;
+    height: 44%;
   }
-  .bottomRow {
-    aspect-ratio: auto;
+  .webservicesImg {
+    object-fit: contain;
+    object-position: center bottom;
   }
-  .bottomWide,
-  .bottomNarrow {
-    min-height: 300px;
+  /* «Остался один шаг»: текст и кнопка компактнее, чтобы помещались. */
+  .oneStepInner {
+    gap: 8px;
   }
-  .card {
-    padding: 28px 32px 32px;
-    gap: 14px;
-  }
-  .cardTitleDark,
-  .cardTitleLight {
-    font-size: clamp(22px, 2vw, 28px);
-  }
-  .narrowTitle1Line,
-  .narrowTitle2Line {
-    font-size: clamp(20px, 1.8vw, 26px);
-  }
-  .cardTextDark,
-  .cardTextLight,
-  .narrowCardText {
-    font-size: 15px;
-  }
-  .priceBtn {
-    font-size: 16px;
-    padding: 12px 20px;
-  }
-  .oneStepTitle {
-    font-size: 22px;
+  .cardGlassDark .cardTextLight {
+    font-size: 13px;
+    max-width: 100%;
   }
   .oneStepBtn {
-    font-size: 15px;
-    padding: 12px 18px;
+    white-space: nowrap;
+    font-size: 13px;
+    padding: 10px 14px;
   }
-  .softBadge {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-  /* Картинка теперь лежит внизу карточки, а не справа, поэтому текст
-     занимает всю ширину. */
-  .cardTitleDark,
-  .cardTitleLight,
-  .cardTextDark,
-  .cardTextLight {
-    max-width: 100%;
+  .bubbleField,
+  .marquee {
+    left: 0;
+    right: 0;
   }
 }
 

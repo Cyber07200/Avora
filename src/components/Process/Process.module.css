@@ -165,7 +165,7 @@
 /* Карточки слегка уменьшены по ширине, но вытянуты по высоте — так все
    пять помещаются в одну строку без прокрутки, а картинка и текст
    внутри остаются читаемыми. */
-@media (min-width: 981px) and (max-width: 1700px) {
+@media (min-width: 1101px) and (max-width: 1700px) {
   .row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -196,5 +196,41 @@
   .iconBubble svg {
     width: 20px;
     height: 20px;
+  }
+}
+
+
+/* ---------- Только узкие ноутбуки (около 1024): карусель ---------- */
+/* Пять колонок на этой ширине дают ~170px на карточку — картинка и текст
+   перестают читаться. Здесь карточки крупные и листаются горизонтально.
+   На 1440 и выше остаётся сетка из пяти карточек в один ряд. */
+@media (min-width: 981px) and (max-width: 1100px) {
+  .row {
+    display: flex;
+    grid-template-columns: unset;
+    aspect-ratio: auto;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 8px 8px 28px;
+    margin-left: -8px;
+    margin-right: -8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+  .row::-webkit-scrollbar {
+    height: 6px;
+  }
+  .row::-webkit-scrollbar-thumb {
+    background: rgb(255, 255, 255);
+    border-radius: 999px;
+  }
+  .card {
+    flex: 0 0 auto;
+    width: 320px;
+    aspect-ratio: 320 / 420;
+    height: auto;
+    padding: 20px 20px 0;
+    scroll-snap-align: start;
   }
 }
