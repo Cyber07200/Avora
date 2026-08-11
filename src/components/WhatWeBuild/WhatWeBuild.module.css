@@ -578,8 +578,11 @@
     aspect-ratio: auto;
     min-height: 260px;
   }
+  /* Пропорция 1285:415 оставляла карточке «Остался один шаг» всего ~166px
+     под кнопку, и текст в неё не помещался. Даём этой колонке больше места. */
   .bottomRow {
     aspect-ratio: auto;
+    grid-template-columns: 1.7fr 1fr;
   }
   .bottomWide,
   .bottomNarrow {
@@ -699,10 +702,14 @@
     font-size: 13px;
     max-width: 100%;
   }
+  /* Кнопка крупнее и на всю ширину карточки — текст помещался впритык
+     (154px текста в кнопке шириной 160px) и упирался в края. */
   .oneStepBtn {
     white-space: nowrap;
-    font-size: 13px;
-    padding: 10px 14px;
+    font-size: 15px;
+    padding: 14px 20px;
+    width: 100%;
+    justify-content: center;
   }
   .bubbleField,
   .marquee {

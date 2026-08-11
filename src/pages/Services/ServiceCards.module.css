@@ -249,11 +249,6 @@
      низом за пределы вьюпорта, а следующая карточка накрывала её сверху —
      нижняя часть текста и кнопка становились недоступны навсегда.
      На мобильном карточки идут обычным вертикальным потоком. */
-  .cardWrap {
-    position: relative;
-    top: auto !important;
-    margin-bottom: 20px;
-  }
 
   .card {
     position: relative;
@@ -614,5 +609,63 @@
   .ctaLaptopLeft,
   .ctaLaptopRight {
     width: 24%;
+  }
+}
+
+/* ---------- Телефоны: стопка отключена ---------- */
+/* На телефоне карточки заметно выше экрана, поэтому «прилипшая» карточка
+   уходила низом за пределы вьюпорта и следующая накрывала её вместе с
+   кнопкой. Здесь карточки идут обычным потоком. */
+@media (max-width: 699px) {
+  .cardWrap {
+    position: relative;
+    top: auto !important;
+    margin-bottom: 20px;
+  }
+}
+
+/* ---------- Планшеты: та же анимация стопки, что на ПК ---------- */
+/* Карточки компактнее, чтобы вместе с отступом прилипания (96px)
+   помещаться в экран — иначе низ карточки с кнопкой перекрывался бы
+   следующей карточкой стопки. */
+@media (min-width: 700px) and (max-width: 980px) {
+  .cardWrap {
+    position: sticky;
+    margin-bottom: 0;
+  }
+  .card {
+    min-height: 0;
+  }
+  .content {
+    padding: 22px 24px;
+    gap: 10px;
+  }
+  .title {
+    font-size: 22px;
+  }
+  .desc {
+    font-size: 15px;
+  }
+  .featuresLabel {
+    font-size: 15px;
+  }
+  .featurePill {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+  .priceText {
+    font-size: 16px;
+  }
+  .durationBtn {
+    font-size: 15px;
+    padding: 11px 18px;
+  }
+  .visual {
+    height: 200px;
+  }
+  .cardCta {
+    position: sticky;
+    height: auto;
+    min-height: 0;
   }
 }
