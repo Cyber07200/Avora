@@ -158,3 +158,16 @@ h1, h2, h3, p {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ---------- Телефон: без анимаций появления ---------- */
+/* Классы .reveal используются во многих секциях. На телефоне контент
+   должен показываться сразу и статично, поэтому переходы отключены,
+   а элементы всегда видимы (даже если JS не успел снять класс). */
+@media (max-width: 700px) {
+  .reveal,
+  .reveal-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

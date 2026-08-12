@@ -418,3 +418,14 @@
     justify-content: center;
   }
 }
+
+
+/* ---------- Только Laptop 1024: телефон крупнее ---------- */
+/* На этой ширине картинка выглядела мелкой относительно карточки. */
+@media (min-width: 981px) and (max-width: 1100px) {
+  .ctaVisualImg {
+    max-width: 100%;
+    transform: scale(1.18);
+    transform-origin: bottom center;
+  }
+}

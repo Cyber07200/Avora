@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import type React from 'react'
 
-const MOBILE_BREAKPOINT = 980
+const MOBILE_BREAKPOINT = 700
 
 /**
  * useRevealOnScroll — переиспользуемый хук для эффекта "проявления" карточек
  * при попадании в область видимости во время скролла.
  *
- * По требованию клиента scroll-reveal анимация работает ТОЛЬКО на мобильной
- * версии (ширина экрана <= 980px). На десктопе карточки показываются сразу,
- * без анимации — так же, как было изначально.
+ * По требованию клиента scroll-reveal анимация отключена на мобильной версии
+ * (ширина экрана <= 700px): там карточки показываются сразу, статично.
+ * На планшетах, ноутбуках и десктопе анимация работает.
  *
  * @param {number} count — сколько карточек анимировать
  * @param {number} staggerMs — задержка между карточками (мс), по умолчанию 90
@@ -37,9 +37,10 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
     const el = containerRef.current
     if (!el) return
 
-    const isDesktop = window.innerWidth > MOBILE_BREAKPOINT
+    // На телефоне анимации появления отключены — карточки сразу видны.
+    const isPhone = window.innerWidth <= MOBILE_BREAKPOINT
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (isDesktop || prefersReduced) {
+    if (isPhone || prefersReduced) {
       setVisible(new Array(count).fill(true))
       return
     }

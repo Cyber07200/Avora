@@ -189,3 +189,13 @@
     width: 84vw;
   }
 }
+
+
+/* ---------- Телефон: карточки отзывов без анимации ---------- */
+@media (max-width: 700px) {
+  .card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

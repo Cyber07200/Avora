@@ -622,6 +622,23 @@
     top: auto !important;
     margin-bottom: 20px;
   }
+  /* На телефоне карточки показываются статично: без «прилипания» и без
+     каких-либо переходов/трансформаций при прокрутке. */
+  .cardWrap,
+  .card,
+  .cardCta,
+  .visual,
+  .visualImg,
+  .storeVisualImg,
+  .expressImg {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto;
+  }
+  .card:hover,
+  .cardCta:hover {
+    transform: none;
+  }
 }
 
 /* ---------- Планшеты: та же анимация стопки, что на ПК ---------- */
