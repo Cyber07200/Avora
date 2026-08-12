@@ -171,3 +171,37 @@ h1, h2, h3, p {
     transition: none !important;
   }
 }
+
+
+/* ---------- Телефон: карточки полностью статичны ---------- */
+/* На телефоне карточки не должны двигаться, масштабироваться, исчезать
+   или подсвечиваться при прокрутке и касании: отключаем переходы,
+   анимации и трансформации у всех карточек и их декоративных слоёв. */
+@media (max-width: 700px) {
+  .reveal,
+  .reveal-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  article,
+  [class*='card'],
+  [class*='Card'] {
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  article:hover,
+  [class*='card']:hover,
+  [class*='Card']:hover {
+    transform: none !important;
+  }
+
+  /* Слой «свечения за курсором» на телефоне не нужен — курсора нет. */
+  [class*='cardGlow'],
+  [class*='Glow'] {
+    display: none !important;
+  }
+}
