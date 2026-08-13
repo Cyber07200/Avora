@@ -677,12 +677,39 @@
     font-size: 15px;
     padding: 11px 18px;
   }
+  /* Картинки крупнее: прежние 200px перебивали значение выше и делали
+     изображение мелким (занимало всего 42% ширины карточки). */
   .visual {
-    height: 200px;
+    height: 340px;
   }
   .cardCta {
     position: sticky;
     height: auto;
     min-height: 0;
+  }
+}
+
+
+/* ---------- Laptop 1440: картинки компактнее ---------- */
+/* Изображение растягивалось по высоте карточки и занимало 68% её ширины —
+   больше, чем на десктопе (56%). Здесь оно вписывается целиком и
+   прижато к правому нижнему углу. */
+@media (min-width: 1301px) and (max-width: 1700px) {
+  .visual {
+    flex: 0 0 42%;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  .visualImg,
+  .storeVisualImg {
+    width: 100%;
+    height: auto;
+    max-height: 88%;
+    object-fit: contain;
+    object-position: right bottom;
+    margin: auto 0 0 auto;
+  }
+  .content {
+    flex: 1.4;
   }
 }
