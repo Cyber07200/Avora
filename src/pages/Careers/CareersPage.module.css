@@ -211,3 +211,32 @@
     font-size: 18px;
   }
 }
+
+
+/* ---------- Планшет: компактнее карточки вакансий ---------- */
+@media (min-width: 700px) and (max-width: 980px) {
+  .card {
+    border-radius: var(--radius-xl);
+    padding: 28px;
+  }
+  .jobTitle {
+    font-size: 24px;
+  }
+  .jobDesc {
+    font-size: 16px;
+  }
+  .salary {
+    font-size: 18px;
+  }
+  .reqPill,
+  .locationBadge {
+    font-size: 14px;
+  }
+  .applyBtn {
+    font-size: 16px;
+    border-radius: var(--radius-lg);
+  }
+  .ctaCard {
+    border-radius: var(--radius-xl);
+  }
+}

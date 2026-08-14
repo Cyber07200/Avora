@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import type { MouseEvent } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
-import { ArrowLeft, ArrowUpRight, BookOpen, Check, Clock, Layers, LayoutGrid } from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  BookOpen,
+  Clock,
+  Layers,
+  LayoutGrid,
+  ListChecks,
+  ListOrdered,
+  Paperclip,
+} from 'lucide-react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import { CASES } from '../../data/cases'
@@ -101,19 +111,28 @@ export default function CaseDetailPage() {
 
             <div className={styles.threeCol}>
               <div className={styles.infoCard}>
-                <h3 className={styles.blockTitle}>Задача клиента</h3>
+                <h3 className={styles.blockTitle}>
+                  <ListOrdered size={22} className={styles.blockIcon} />
+                  <span>Задача клиента</span>
+                </h3>
                 <p className={styles.blockText}>{caseItem.task}</p>
               </div>
               <div className={styles.infoCard}>
-                <h3 className={styles.blockTitle}>Что мы сделали</h3>
+                <h3 className={styles.blockTitle}>
+                  <ListChecks size={22} className={styles.blockIcon} />
+                  <span>Что мы сделали</span>
+                </h3>
                 <p className={styles.blockText}>{caseItem.solution}</p>
               </div>
               <div className={styles.infoCard}>
-                <h3 className={styles.blockTitle}>Особенности</h3>
+                <h3 className={styles.blockTitle}>
+                  <Paperclip size={22} className={styles.blockIcon} />
+                  <span>Особенности</span>
+                </h3>
                 <ul className={styles.featureList}>
                   {caseItem.features.map((f) => (
                     <li key={f} className={styles.featureItem}>
-                      <Check size={16} strokeWidth={3} />
+                      <span className={styles.featureDot} aria-hidden="true" />
                       <span>{f}</span>
                     </li>
                   ))}

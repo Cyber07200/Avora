@@ -713,3 +713,93 @@
     flex: 1.4;
   }
 }
+
+
+/* ---------- Планшет: бейдж внутри карточки ---------- */
+/* На планшете бейдж поднимался над верхней границей на 16px — здесь он
+   в правом верхнем углу внутри карточки, как на ПК. */
+@media (min-width: 700px) and (max-width: 980px) {
+  .badge {
+    top: 22px;
+    right: 22px;
+    transform: none;
+  }
+  .cardWrap {
+    padding-top: 0;
+  }
+}
+
+/* ---------- Телефон: карточка помещается в экран ---------- */
+/* Карточки были 1200-1270px при экране 844px. Компактнее типографика,
+   отступы и область картинки — одна карточка целиком видна на экране. */
+@media (max-width: 699px) {
+  .content {
+    padding: 20px;
+    gap: 10px;
+  }
+  .title {
+    font-size: 19px;
+  }
+  .desc {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .featuresLabel {
+    font-size: 13px;
+  }
+  .featurePill {
+    font-size: 12px;
+    padding: 7px 12px;
+  }
+  .featuresList {
+    gap: 6px;
+  }
+  .priceText {
+    font-size: 14px;
+  }
+  .durationBtn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+  .badge {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  .visual {
+    height: 210px;
+    /* Картинки прижаты к правому нижнему углу карточки. */
+    align-items: flex-end;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+  .visualImg,
+  .storeVisualImg {
+    width: auto;
+    height: 100%;
+    max-width: 92%;
+    object-fit: contain;
+    object-position: right bottom;
+    margin: 0 0 0 auto;
+    align-self: flex-end;
+  }
+  /* Ноутбук с часами: целиком в карточке, ниже текста, без обрезки. */
+  .expressImg {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    width: auto;
+    height: 100%;
+    max-width: 92%;
+    object-fit: contain;
+    object-position: right bottom;
+    margin: 0 0 0 auto;
+    transform: rotate(180deg);
+  }
+  /* Скругление меньше — текст у углов больше не выглядит зажатым. */
+  .card,
+  .cardCta {
+    border-radius: var(--radius-xl);
+  }
+}

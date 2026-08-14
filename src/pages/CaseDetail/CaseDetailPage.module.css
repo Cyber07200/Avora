@@ -155,6 +155,9 @@
 }
 
 .blockTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 22px;
   font-weight: 600;
   color: var(--white);
@@ -183,11 +186,19 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-.featureItem svg {
+/* Маркеры-точки вместо галочек. */
+.featureDot {
   flex-shrink: 0;
-  margin-top: 3px;
-  /* Галочки в «Особенностях» — нейтрально-серые, а не акцентные. */
-  color: rgba(255, 255, 255, 0.55);
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.blockIcon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .techRow {
