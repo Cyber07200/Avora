@@ -57,7 +57,7 @@ export default function Reliability() {
             >
               <span className={styles.cardGlow} aria-hidden="true" />
               <div className={styles.sideHead}>
-                <Calendar size={48} />
+                <Calendar size={32} />
                 <h3 className={styles.sideTitle}>Фиксируем сроки</h3>
               </div>
               <p className={styles.sideDesc}>
@@ -75,7 +75,7 @@ export default function Reliability() {
             >
               <span className={styles.cardGlow} aria-hidden="true" />
               <div className={styles.sideHead}>
-                <ShieldCheck size={48} />
+                <ShieldCheck size={32} />
                 <h3 className={styles.sideTitleNowrap}>Гарантия результата</h3>
               </div>
               <p className={styles.sideDesc}>

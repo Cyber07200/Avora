@@ -30,11 +30,11 @@
   padding: 0 18px;
   border-radius: 20px;
   background: var(--white);
-  color: var(--text-primary);
+  color: #3232329c;
   font-size: 16px;
   font-weight: 500;
-  box-shadow: var(--shadow-soft);
   transition: transform 0.2s ease;
+  border: solid 1px #d9d9d96e;
 }
 
 .backPill:hover {
@@ -43,8 +43,9 @@
 
 .heroTitle {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
+  opacity: 0.6;
   min-width: 0;
 }
 
@@ -60,12 +61,12 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  height: 50px;
+  height: 45px;
   padding: 0 20px;
-  border-radius: 20px;
+  border-radius: 24px;
   background: rgba(17, 17, 17, 0.6);
   color: var(--white);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -210,11 +211,11 @@
 .techTag {
   background: var(--white);
   color: var(--text-primary);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
-  padding: 20px 30px;
+  padding: 15px 30px;
   border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-soft);
+  border: solid 1px #d9d9d96e;
 }
 
 /* ---------- CTA ---------- */
@@ -329,13 +330,14 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--white);
-  color: var(--text-primary);
+  background: #ffffff36;
+  color: #FFF;
   font-size: 18px;
   font-weight: 600;
   padding: 16px 28px;
   border-radius: var(--radius-xl);
   transition: transform 0.2s ease;
+  box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.25), inset -3px -3px 3px rgba(255, 255, 255, 0.10);
 }
 
 .ctaSecondary:hover {
@@ -347,12 +349,14 @@
   .heroTitle {
     font-size: 20px;
   }
+
   .metaPill {
     height: 44px;
     padding: 0 16px;
     font-size: 17px;
     gap: 8px;
   }
+
   .heroMeta {
     gap: 12px;
   }
@@ -364,9 +368,11 @@
     align-items: flex-start;
     gap: 16px;
   }
+
   .heroMeta {
     gap: 10px;
   }
+
   .metaPill {
     height: 40px;
     font-size: 15px;
@@ -374,56 +380,80 @@
 }
 
 @media (max-width: 900px) {
+
   /* На узких экранах название переносится под кнопку «Назад». */
+  .heroCard {
+    border-radius: 28px;
+  }
+
   .heroTopLeft {
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
   }
+
   .heroTitle {
     font-size: 18px;
   }
+
   .metaPill {
     height: 36px;
     padding: 0 14px;
     font-size: 14px;
   }
+
   .metaPill svg {
     width: 16px;
     height: 16px;
   }
+
   .threeCol {
     grid-template-columns: 1fr;
   }
+
+  .infoCard {
+    border-radius: 28px;
+  }
+
   .statsRow {
     gap: 10px;
   }
+
   .stat {
     font-size: 14px;
     padding: 8px 14px;
   }
+
   .coverImg {
     max-height: 300px;
   }
+
   .techTag {
     font-size: 16px;
     padding: 14px 22px;
   }
+
   .ctaCard {
     flex-direction: column;
+    border-radius: 28px;
   }
+
   .ctaVisual {
-    width: 100%;
+    width: 150%;
+    transform: translateX(17.5%);
     min-height: 0;
     /* На мобильном текст сверху, картинка под ним. */
     order: 1;
   }
+
   .ctaText {
     order: 0;
   }
+
   .ctaRow {
     flex-direction: column;
   }
+
   .ctaPrimary,
   .ctaSecondary {
     justify-content: center;
@@ -440,17 +470,21 @@
     transform: scale(1.18);
     transform-origin: bottom center;
   }
+
   .ctaTitle {
     font-size: 28px;
     white-space: nowrap;
   }
+
   .ctaSubtext {
     font-size: 15px;
     max-width: 40ch;
   }
+
   .ctaEyebrow {
     font-size: 14px;
   }
+
   .ctaPrimary,
   .ctaSecondary {
     font-size: 15px;
